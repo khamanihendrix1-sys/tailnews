@@ -1,6 +1,6 @@
 steps:
   - name: Export GitHub repository context for Copilot agent
-    if: ${{ env.GITHUB_ACTIONS == 'true' && env.GITHUB_SERVER_URL != '' }}
+    if: ${{ env.GITHUB_SERVER_URL != '' }}
     run: |
       echo "GITHUB_SERVER_URL=${GITHUB_SERVER_URL}" >> "$GITHUB_ENV"
       echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}" >> "$GITHUB_ENV"
