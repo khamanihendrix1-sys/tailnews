@@ -22,7 +22,8 @@
     "gulp-purgecss": "^3.1.3",
     "gulp-replace": "^1.1.3",
     "gulp-terser": "^2.0.1",
-    "log-symbols": "^4.1.0"
+    "log-symbols": "^4.1.0",
+    "wrangler": "^4.110.0"
   },
   "scripts": {
     "dev": "gulp",
@@ -34,7 +35,9 @@
     "dev:status": "lsof -iTCP -sTCP:LISTEN -nP | grep -E \"3100|3101|3001|3002\" || true",
     "build": "gulp prod",
     "prod": "gulp prod",
-    "updatevendors": "gulp updatevendors"
+    "updatevendors": "gulp updatevendors",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev"
   },
   "repository": {
     "type": "git",
