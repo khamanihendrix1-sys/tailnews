@@ -61,7 +61,7 @@ function prodStyles(){
 // minify js
 function prodScripts(){
   return src([
-   "src/vendors/hc-sticky/dist/hc-sticky.js",
+  "src/vendors/hc-sticky/src/hc-sticky.js",
    "src/vendors/glightbox/dist/js/glightbox.min.js",
    "src/vendors/@splidejs/splide/dist/js/splide.min.js",
    "src/vendors/@splidejs/splide-extension-video/dist/js/splide-extension-video.min.js",
