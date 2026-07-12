@@ -8,6 +8,7 @@ const tersers              = require('gulp-terser');
 const cleanCSS             = require('gulp-clean-css');
 const purgecss             = require('gulp-purgecss');
 const logSymbols           = require('log-symbols');
+const fs                   = require('fs');
 
 //Load Previews on Browser on dev
 function livePreview(done){
@@ -59,12 +60,41 @@ function prodStyles(){
   .pipe(dest("./dist/css"));
 }
 // minify js
+function pickFirstExisting(candidates, label) {
+  const found = candidates.find((filePath) => fs.existsSync(filePath));
+  if (!found) {
+    throw new Error(`Missing vendor file for ${label}. Checked: ${candidates.join(', ')}`);
+  }
+  return found;
+}
+
 function prodScripts(){
+  const hcStickyPath = pickFirstExisting([
+    "node_modules/hc-sticky/src/hc-sticky.js",
+    "src/vendors/hc-sticky/dist/hc-sticky.js",
+    "src/vendors/hc-sticky/src/hc-sticky.js"
+  ], "hc-sticky");
+
+  const glightboxPath = pickFirstExisting([
+    "node_modules/glightbox/dist/js/glightbox.min.js",
+    "src/vendors/glightbox/dist/js/glightbox.min.js"
+  ], "glightbox");
+
+  const splidePath = pickFirstExisting([
+    "node_modules/@splidejs/splide/dist/js/splide.min.js",
+    "src/vendors/@splidejs/splide/dist/js/splide.min.js"
+  ], "splide");
+
+  const splideVideoPath = pickFirstExisting([
+    "node_modules/@splidejs/splide-extension-video/dist/js/splide-extension-video.min.js",
+    "src/vendors/@splidejs/splide-extension-video/dist/js/splide-extension-video.min.js"
+  ], "splide-extension-video");
+
   return src([
-  "src/vendors/hc-sticky/src/hc-sticky.js",
-   "src/vendors/glightbox/dist/js/glightbox.min.js",
-   "src/vendors/@splidejs/splide/dist/js/splide.min.js",
-   "src/vendors/@splidejs/splide-extension-video/dist/js/splide-extension-video.min.js",
+   hcStickyPath,
+   glightboxPath,
+   splidePath,
+   splideVideoPath,
    "src/js/meridian-config.js",
    "src/js/signal-engine.js",
    "src/js/pdf-report.js",
