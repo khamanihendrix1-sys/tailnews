@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Dashboard | Meridian Data</title>
+  <meta name="description" content="Meridian Data enterprise platform dashboard">
+  <link rel="stylesheet" href="src/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="src/img/favicon.jpg">
+  <style>
+    .md-dash-stat-up   { color: #16a34a; }
+    .md-dash-stat-down { color: #dc2626; }
+    .md-dash-stat-neu  { color: #6b7280; }
+    .md-dash-card      { background: #fff; border: 1px solid #e5e7eb; }
+    .md-dash-kpi       { background: #fff; border: 1px solid #e5e7eb; padding: 1.25rem 1.5rem; }
+    .md-dash-kpi-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; font-weight: 600; }
+    .md-dash-kpi-value { font-size: 1.75rem; font-weight: 700; color: #111827; line-height: 1.1; margin: 0.25rem 0; }
+    .md-dash-kpi-delta { font-size: 0.75rem; font-weight: 500; }
+    .md-signal-row     { display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 1px solid #f3f4f6; }
+    .md-signal-row:last-child { border-bottom: none; }
+    .md-signal-name    { font-size: 0.8rem; color: #374151; font-weight: 500; }
+    .md-signal-val     { font-size: 0.8rem; font-weight: 600; color: #111827; }
+    .md-briefing-row   { display: flex; gap: 0.75rem; padding: 0.875rem 0; border-bottom: 1px solid #f3f4f6; align-items: flex-start; }
+    .md-briefing-row:last-child { border-bottom: none; }
+    .md-briefing-num   { font-size: 1.5rem; font-weight: 700; color: #e5e7eb; line-height: 1; flex-shrink: 0; width: 2rem; text-align: right; }
+    .md-briefing-tag   { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.4rem; background: #f3f4f6; color: #6b7280; margin-bottom: 0.2rem; }
+    .md-briefing-title { font-size: 0.875rem; font-weight: 600; color: #111827; line-height: 1.4; }
+    .md-briefing-title:hover { color: #374151; text-decoration: underline; }
+    .md-briefing-meta  { font-size: 0.7rem; color: #9ca3af; margin-top: 0.2rem; }
+    .md-user-badge     { width: 2rem; height: 2rem; border-radius: 9999px; background: #374151; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .md-nav-link       { font-size: 0.8rem; font-weight: 600; color: #9ca3af; padding: 0.75rem 1rem; display: block; border-bottom: 2px solid transparent; }
+    .md-nav-link:hover { color: #fff; background: #1f2937; }
+    .md-nav-link.active { color: #fff; border-bottom-color: #fff; }
+    .md-section-head   { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; padding: 0.75rem 1rem; border-bottom: 1px solid #1f2937; background: #111827; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-700" style="font-family:'Roboto',sans-serif;">
+
+  <!-- ===== Fixed top header ===== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-gray-800" style="height:3.25rem;">
+    <div class="flex items-stretch h-full">
+
+      <!-- Brand -->
+      <a href="index.html" class="flex items-center px-5 border-r border-gray-800 text-white font-bold text-base tracking-tight flex-shrink-0 hover:bg-gray-900">
+        Meridian Data<span class="text-xs align-top ml-1 font-normal text-gray-500">&trade;</span>
+      </a>
+
+      <!-- Primary nav -->
+      <nav class="hidden lg:flex items-stretch flex-1">
+        <a href="index.html" class="md-nav-link">Home</a>
+        <a href="category.html" class="md-nav-link">Markets</a>
+        <a href="search.html" class="md-nav-link">Research</a>
+        <a href="page.html" class="md-nav-link">Data Lab</a>
+        <a href="dashboard.html" class="md-nav-link active">Dashboard</a>
+      </nav>
+
+      <!-- Right controls -->
+      <div class="flex items-stretch ml-auto">
+        <!-- Search -->
+        <div id="md-dash-search" class="relative border-l border-gray-800">
+          <button type="button" id="md-dash-search-btn" class="flex items-center h-full px-4 text-gray-400 hover:text-white hover:bg-gray-900" aria-label="Toggle search" aria-expanded="false">
+            <svg id="md-dash-search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+            <svg id="md-dash-close-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16" style="display:none">
+              <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+              <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+            </svg>
+          </button>
+          <div id="md-dash-search-panel" style="display:none;position:absolute;right:0;top:100%;z-index:999;min-width:16rem;background:#fff;border:1px solid #e5e7eb;padding:0.75rem;">
+            <form action="search.html" method="get" class="flex items-stretch w-full">
+              <input type="text" name="q" id="md-dash-search-input" class="flex-1 py-2 px-4 text-sm text-gray-800 border border-gray-300 focus:outline-none focus:border-gray-900" placeholder="Search briefings, signals…" aria-label="Search" autocomplete="off">
+              <button type="submit" class="py-2 px-4 bg-black text-white text-sm hover:bg-gray-900 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <button class="flex items-center px-4 border-l border-gray-800 text-gray-400 hover:text-white hover:bg-gray-900 relative" aria-label="Notifications">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+        </button>
+
+        <!-- User -->
+        <div class="flex items-center gap-2.5 px-4 border-l border-gray-800 text-gray-300 text-sm">
+          <div class="md-user-badge">JD</div>
+          <span class="hidden xl:inline font-medium text-white text-xs">J. Daley</span>
+          <svg class="text-gray-600" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
+        </div>
+
+        <!-- Sign Out -->
+        <a href="sign-in.html" class="flex items-center px-4 border-l border-gray-800 text-gray-400 hover:text-white hover:bg-gray-900 text-xs font-semibold tracking-wide">
+          Sign Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Page body (offset for fixed header) ===== -->
+  <div style="padding-top:3.25rem;" class="min-h-screen">
+
+    <!-- Welcome bar -->
+    <div class="bg-white border-b border-gray-200 px-6 py-4">
+      <div class="xl:container mx-auto xl:px-2 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p class="text-xs text-gray-400 mb-0.5">
+            <a href="index.html" class="hover:text-gray-600">Home</a>
+            <span class="mx-1.5">/</span>
+            <span class="text-gray-600 font-medium">Dashboard</span>
+          </p>
+          <h1 class="text-xl font-bold text-gray-900">Good morning, J. Daley</h1>
+          <p class="text-xs text-gray-400 mt-0.5">Friday, July 18, 2026 &nbsp;&bull;&nbsp; Institutional Access &nbsp;&bull;&nbsp; CRE Markets Platform</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="page.html" class="flex items-center gap-1.5 py-2 px-4 bg-black text-white text-xs font-semibold hover:bg-gray-900">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Open Data Lab
+          </a>
+          <a href="search.html" class="flex items-center gap-1.5 py-2 px-4 border border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-50">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Research Archive
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main grid -->
+    <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2 py-6">
+
+      <!-- ── KPI Row ── -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+        <div class="md-dash-kpi">
+          <div class="md-dash-kpi-label">Avg. Cap Rate &mdash; National</div>
+          <div class="md-dash-kpi-value">6.82%</div>
+          <div class="md-dash-kpi-delta md-dash-stat-up">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
+            +12 bps QoQ
+          </div>
+        </div>
+
+        <div class="md-dash-kpi">
+          <div class="md-dash-kpi-label">CMBS Delinquency Rate</div>
+          <div class="md-dash-kpi-value">3.24%</div>
+          <div class="md-dash-kpi-delta md-dash-stat-down">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="6 9 12 15 18 9"/></svg>
+            &minus;18 bps MoM
+          </div>
+        </div>
+
+        <div class="md-dash-kpi">
+          <div class="md-dash-kpi-label">10Y Treasury Spread</div>
+          <div class="md-dash-kpi-value">+285 bps</div>
+          <div class="md-dash-kpi-delta md-dash-stat-up">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
+            +5 bps WoW
+          </div>
+        </div>
+
+        <div class="md-dash-kpi">
+          <div class="md-dash-kpi-label">Q2 Transaction Volume</div>
+          <div class="md-dash-kpi-value">$86.1B</div>
+          <div class="md-dash-kpi-delta md-dash-stat-up">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
+            +4.3% YoY
+          </div>
+        </div>
+
+      </div><!-- end KPI row -->
+
+      <!-- ── Two-column content ── -->
+      <div class="flex flex-wrap gap-4">
+
+        <!-- Left: Recent Briefings (2/3) -->
+        <div class="flex-1 min-w-0" style="flex-basis:62%;">
+
+          <div class="md-dash-card mb-4">
+            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Recent Briefings</h2>
+              <a href="category.html" class="text-xs text-gray-400 hover:text-gray-700 font-medium">View all &rarr;</a>
+            </div>
+            <div class="px-5 py-2">
+
+              <div class="md-briefing-row">
+                <span class="md-briefing-num">01</span>
+                <div>
+                  <span class="md-briefing-tag">Cap Rates</span>
+                  <a href="article-cap-rate-compression.html" class="md-briefing-title block">Cap Rate Compression Reverses in Sun Belt Industrial Markets</a>
+                  <div class="md-briefing-meta">Jul 18, 2026 &bull; 5 min read &bull; Markets</div>
+                </div>
+              </div>
+
+              <div class="md-briefing-row">
+                <span class="md-briefing-num">02</span>
+                <div>
+                  <span class="md-briefing-tag">CMBS</span>
+                  <a href="article-cmbs-delinquency.html" class="md-briefing-title block">CMBS Delinquency Slides to 3.24% as Office Resolutions Accelerate</a>
+                  <div class="md-briefing-meta">Jul 17, 2026 &bull; 4 min read &bull; Debt Markets</div>
+                </div>
+              </div>
+
+              <div class="md-briefing-row">
+                <span class="md-briefing-num">03</span>
+                <div>
+                  <span class="md-briefing-tag">Debt</span>
+                  <a href="article-debt-funds-lending.html" class="md-briefing-title block">Debt Funds Capture 38% of Bridge Originations as Banks Pull Back</a>
+                  <div class="md-briefing-meta">Jul 16, 2026 &bull; 6 min read &bull; Lending</div>
+                </div>
+              </div>
+
+              <div class="md-briefing-row">
+                <span class="md-briefing-num">04</span>
+                <div>
+                  <span class="md-briefing-tag">Office</span>
+                  <a href="article-office-conversions.html" class="md-briefing-title block">Adaptive Reuse Conversions Hit Record Pace in Gateway Cities</a>
+                  <div class="md-briefing-meta">Jul 15, 2026 &bull; 7 min read &bull; Sectors</div>
+                </div>
+              </div>
+
+              <div class="md-briefing-row">
+                <span class="md-briefing-num">05</span>
+                <div>
+                  <span class="md-briefing-tag">REIT</span>
+                  <a href="article-reit-issuance.html" class="md-briefing-title block">REIT Preferred Issuance Surges $4.2B in Q2 as Cost of Capital Tightens</a>
+                  <div class="md-briefing-meta">Jul 14, 2026 &bull; 5 min read &bull; Capital Markets</div>
+                </div>
+              </div>
+
+              <div class="md-briefing-row">
+                <span class="md-briefing-num">06</span>
+                <div>
+                  <span class="md-briefing-tag">Logistics</span>
+                  <a href="article-sunbelt-logistics.html" class="md-briefing-title block">Sun Belt Logistics Corridor Absorption Outpaces New Supply for Third Straight Quarter</a>
+                  <div class="md-briefing-meta">Jul 12, 2026 &bull; 5 min read &bull; Industrial</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Watchlist -->
+          <div class="md-dash-card">
+            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Saved Reports</h2>
+              <button class="text-xs text-gray-400 hover:text-gray-700 font-medium">Manage &rarr;</button>
+            </div>
+            <div class="px-5 py-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Q2 2026 Cap Rate Scan</div>
+                  <div class="text-xs text-gray-400">Generated Jul 10 &bull; PDF &bull; 14 pages</div>
+                </div>
+
+                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Sun Belt Industrial Signals</div>
+                  <div class="text-xs text-gray-400">Generated Jul 7 &bull; PDF &bull; 9 pages</div>
+                </div>
+
+                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Office Conversion Pipeline</div>
+                  <div class="text-xs text-gray-400">Generated Jun 28 &bull; PDF &bull; 22 pages</div>
+                </div>
+
+                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Debt Fund Lending Trends</div>
+                  <div class="text-xs text-gray-400">Generated Jun 20 &bull; PDF &bull; 11 pages</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right sidebar (1/3) -->
+        <div style="flex-basis:34%; min-width:240px;" class="flex flex-col gap-4">
+
+          <!-- Live Signals -->
+          <div class="md-dash-card">
+            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Live Signals</h2>
+              <span class="flex items-center gap-1 text-xs text-green-600 font-semibold">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse inline-block"></span>
+                Live
+              </span>
+            </div>
+            <div class="px-5 py-2">
+
+              <div class="md-signal-row">
+                <span class="md-signal-name">National CRE Price Index</span>
+                <span class="md-signal-val md-dash-stat-up">128.4 <span style="font-weight:400;color:#9ca3af;">+1.8%</span></span>
+              </div>
+              <div class="md-signal-row">
+                <span class="md-signal-name">Office Vacancy Rate</span>
+                <span class="md-signal-val md-dash-stat-neu">17.2%</span>
+              </div>
+              <div class="md-signal-row">
+                <span class="md-signal-name">Industrial Rent Growth</span>
+                <span class="md-signal-val md-dash-stat-up">+4.6%</span>
+              </div>
+              <div class="md-signal-row">
+                <span class="md-signal-name">Multifamily Absorption</span>
+                <span class="md-signal-val md-dash-stat-up">+22,400 units</span>
+              </div>
+              <div class="md-signal-row">
+                <span class="md-signal-name">Retail Net Absorption</span>
+                <span class="md-signal-val md-dash-stat-neu">+1.1M SF</span>
+              </div>
+              <div class="md-signal-row">
+                <span class="md-signal-name">Bridge Loan Spreads</span>
+                <span class="md-signal-val md-dash-stat-down">S+310 bps</span>
+              </div>
+              <div class="md-signal-row">
+                <span class="md-signal-name">Preferred Equity Yield</span>
+                <span class="md-signal-val md-dash-stat-neu">10.5&ndash;12.0%</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Data Lab CTA -->
+          <div class="bg-black text-white p-5">
+            <h3 class="text-sm font-bold mb-1 tracking-tight">Data Lab</h3>
+            <p class="text-xs text-gray-400 mb-4 leading-relaxed">Run AI-powered market queries against live CRE signal data. Export structured reports for underwriting and IC memos.</p>
+            <a href="page.html" class="block w-full py-2.5 text-center bg-white text-black text-xs font-semibold tracking-wide hover:bg-gray-100">
+              Launch Data Lab &rarr;
+            </a>
+          </div>
+
+          <!-- Platform status -->
+          <div class="md-dash-card">
+            <div class="px-5 py-3 border-b border-gray-100">
+              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Platform Status</h2>
+            </div>
+            <div class="px-5 py-3 space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-gray-600">Signal Engine</span>
+                <span class="flex items-center gap-1.5 text-green-600 font-semibold"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Operational</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-gray-600">Data Feed API</span>
+                <span class="flex items-center gap-1.5 text-green-600 font-semibold"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Operational</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-gray-600">PDF Export</span>
+                <span class="flex items-center gap-1.5 text-green-600 font-semibold"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Operational</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-gray-600">SSO / Auth</span>
+                <span class="flex items-center gap-1.5 text-yellow-500 font-semibold"><span class="w-1.5 h-1.5 bg-yellow-400 rounded-full inline-block"></span>Maintenance</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- end two-column -->
+
+    </div><!-- end container -->
+
+    <!-- Footer strip -->
+    <div class="border-t border-gray-200 bg-white mt-6">
+      <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2 py-4 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-400">
+        <span>&copy; 2026 Meridian Data. All rights reserved.</span>
+        <div class="flex gap-4">
+          <a href="policy.html" class="hover:text-gray-700">Privacy Policy</a>
+          <a href="policy.html" class="hover:text-gray-700">Terms of Use</a>
+          <a href="contact-us.html" class="hover:text-gray-700">Contact</a>
+          <a href="docs/index.html" class="hover:text-gray-700">Documentation</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end page body -->
+
+  <!-- Start development js -->
+  <script src="src/js/meridian-config.js"></script>
+  <script src="src/js/meridian-platform.js"></script>
+  <script src="src/js/theme.js"></script>
+  <!-- End development js -->
+
+  <script>
+    (function () {
+      var btn   = document.getElementById('md-dash-search-btn');
+      var panel = document.getElementById('md-dash-search-panel');
+      var iconSearch = document.getElementById('md-dash-search-icon');
+      var iconClose  = document.getElementById('md-dash-close-icon');
+      var input = document.getElementById('md-dash-search-input');
+      if (!btn || !panel) return;
+
+      function openSearch() {
+        panel.style.display = 'block';
+        iconSearch.style.display = 'none';
+        iconClose.style.display  = 'block';
+        btn.setAttribute('aria-expanded', 'true');
+        if (input) { input.focus(); }
+      }
+
+      function closeSearch() {
+        panel.style.display = 'none';
+        iconSearch.style.display = 'block';
+        iconClose.style.display  = 'none';
+        btn.setAttribute('aria-expanded', 'false');
+        if (input) { input.value = ''; }
+      }
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        panel.style.display === 'none' ? openSearch() : closeSearch();
+      });
+
+      document.addEventListener('click', function (e) {
+        var wrap = document.getElementById('md-dash-search');
+        if (wrap && !wrap.contains(e.target)) { closeSearch(); }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeSearch(); }
+      });
+    })();
+  </script>
+
+</body>
+</html>
