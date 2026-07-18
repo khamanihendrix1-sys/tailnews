@@ -169,229 +169,349 @@ License: You must have a valid license from official store to legally use the th
       </div>
     </div>
 
-    <!-- Member Status Banner -->
-    <div class="bg-gradient-to-r from-gray-900 to-black py-4 text-white">
+    <!-- Beta Disclaimer Banner -->
+    <div class="bg-amber-50 border-b border-amber-200 py-3">
       <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
-        <div class="flex flex-row justify-between items-center">
-          <div>
-            <p class="text-sm text-gray-400">Welcome to</p>
-            <h2 class="text-xl font-bold">Meridian Data Lab</h2>
+        <div class="flex items-center gap-3">
+          <div class="flex-shrink">
+            <span class="px-3 py-1 bg-amber-600 text-white text-xs font-bold rounded">BETA</span>
           </div>
-          <div id="md-member-status" class="text-right">
-            <div class="md-member-badge inline-block px-3 py-1 bg-blue-600 text-white rounded-full text-xs font-semibold">
-              <span class="md-member-indicator">📋 Sign In Required</span>
+          <p class="text-sm text-amber-900">This Data Lab is currently in beta. Features and data may change. <a href="#" class="font-semibold hover:underline">Send feedback</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header Banner -->
+    <div class="bg-gradient-to-r from-slate-900 to-slate-800 py-6 text-white border-b border-slate-700">
+      <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
+        <div class="flex flex-row justify-between items-start">
+          <div>
+            <p class="text-sm text-slate-400 uppercase tracking-wider font-semibold">Advanced Intelligence Platform</p>
+            <h1 class="text-3xl md:text-4xl font-bold mt-1">Data Lab</h1>
+            <p class="text-slate-300 mt-2 max-w-2xl">Interactive market analytics and benchmarking for institutional real estate investors.</p>
+          </div>
+          <div id="md-member-status" class="text-right flex-shrink-0">
+            <div class="md-member-badge inline-block px-4 py-2 bg-blue-600 text-white rounded text-sm font-semibold">
+              <span class="md-member-indicator">Sign In Required</span>
             </div>
-            <p class="text-xs text-gray-400 mt-1">
-              <a href="sign-in.html" class="text-blue-400 hover:text-blue-300 font-semibold">Member dashboard available</a>
+            <p class="text-xs text-slate-400 mt-2">
+              <a href="sign-in.html" class="text-blue-300 hover:text-blue-200 font-semibold">Access member dashboard</a>
             </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="bg-gray-50 py-6">
+    <div class="bg-white py-8">
       <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
-        <section class="md-datalab p-5 border border-gray-200 rounded bg-white" data-md-sync-url="true">
-          <div class="flex flex-row flex-wrap -mx-2 mb-4">
-            <div class="w-full lg:w-1/2 px-2 mb-3 md-hero-intro">
-              <h1 class="text-3xl font-bold text-gray-800">Data Lab</h1>
-              <p class="text-gray-600">Explore market intelligence with interactive filtering and benchmarking tools.</p>
-              <div class="mt-3">
-                <span id="md-access-mode" class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded mr-2">
-                  Preview Mode
-                </span>
-                <span class="inline-block text-xs text-gray-500">Last updated: <span data-md-last-update>moments ago</span></span>
+        <!-- Controls Section -->
+        <div class="mb-8 p-6 bg-slate-50 border border-slate-200 rounded-lg">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Filter Controls -->
+            <div>
+              <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-4">Filter Data</h3>
+              <div class="space-y-3">
+                <select data-md-filter-region class="w-full border border-slate-300 px-4 py-3 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="All">All Regions</option>
+                  <option value="Sun Belt">Sun Belt</option>
+                  <option value="Gateway">Gateway</option>
+                  <option value="Coastal">Coastal</option>
+                </select>
+                <select data-md-filter-sector class="w-full border border-slate-300 px-4 py-3 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="All">All Sectors</option>
+                  <option value="Industrial">Industrial</option>
+                  <option value="Office">Office</option>
+                  <option value="Multifamily">Multifamily</option>
+                  <option value="Retail">Retail</option>
+                  <option value="Life Science">Life Science</option>
+                  <option value="Hospitality">Hospitality</option>
+                </select>
+                <input data-md-search type="text" class="w-full border border-slate-300 px-4 py-3 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Search metro or property name">
               </div>
             </div>
-            <div class="w-full lg:w-1/2 px-2 mb-3">
-              <div class="md-datalab-controls">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
-                  <select data-md-filter-region class="border border-gray-300 px-3 py-2 text-sm">
-                    <option value="All">All Regions</option>
-                    <option value="Sun Belt">Sun Belt</option>
-                    <option value="Gateway">Gateway</option>
-                    <option value="Coastal">Coastal</option>
-                  </select>
-                  <select data-md-filter-sector class="border border-gray-300 px-3 py-2 text-sm">
-                    <option value="All">All Sectors</option>
-                    <option value="Industrial">Industrial</option>
-                    <option value="Office">Office</option>
-                    <option value="Multifamily">Multifamily</option>
-                    <option value="Retail">Retail</option>
-                    <option value="Life Science">Life Science</option>
-                    <option value="Hospitality">Hospitality</option>
-                  </select>
-                  <input data-md-search type="text" class="border border-gray-300 px-3 py-2 text-sm col-span-2" placeholder="Search metro or property">
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2 mb-2">
-                  <button type="button" data-md-export class="px-2 py-2 bg-black text-white text-sm hover:bg-gray-800">Export CSV</button>
-                  <button type="button" data-md-export-pdf class="px-2 py-2 border border-gray-300 text-sm hover:bg-gray-50">PDF Report</button>
-                  <button type="button" data-md-save-view class="px-2 py-2 border border-gray-300 text-sm hover:bg-gray-50 md-member-only" title="Members only">
-                    💾 Save View
-                  </button>
-                  <button type="button" data-md-signal-mode-toggle class="px-2 py-2 border border-gray-300 text-sm hover:bg-gray-50">Mode: Mock</button>
-                  <button type="button" data-md-signal-request class="px-2 py-2 border border-gray-300 text-sm hover:bg-gray-50 md-member-only" title="Members only">
-                    🔄 Live Signal
-                  </button>
-                </div>
+
+            <!-- Action Buttons -->
+            <div>
+              <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-4">Actions</h3>
+              <div class="grid grid-cols-2 gap-3 mb-3">
+                <button type="button" data-md-export class="px-4 py-3 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition">Export CSV</button>
+                <button type="button" data-md-export-pdf class="px-4 py-3 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition">PDF Report</button>
               </div>
-              <div class="flex items-center justify-between mt-2">
-                <div>
-                  <span data-md-signal-mode-label class="md-signal-mode-label text-xs text-gray-500">Using mock response source</span>
-                  <p data-md-signal-status class="text-xs text-gray-500">Signal Engine status: idle</p>
-                </div>
-                <div class="md-member-lock">
-                  <span class="text-xs px-2 py-1 bg-amber-100 text-amber-800 rounded inline-block md-member-only" title="Premium members unlock live API">
-                    🔒 Live data (members)
-                  </span>
-                </div>
+              <div class="grid grid-cols-2 gap-3">
+                <button type="button" data-md-save-view class="px-4 py-3 border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition md-member-only" title="Members only">
+                  Save View
+                </button>
+                <button type="button" data-md-signal-mode-toggle class="px-4 py-3 border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition">
+                  Mock Mode
+                </button>
               </div>
-              <div class="md-signal-panel mt-3" data-md-signal-panel>
-                <div class="md-signal-panel-head">
-                  <strong>Signal Engine Response</strong>
-                  <span class="md-signal-panel-note" data-md-signal-mode-note>Mock mode auto-fallback is enabled for local demo.</span>
-                </div>
-                <pre class="md-signal-output" data-md-signal-response">{
+            </div>
+          </div>
+
+          <!-- Status Bar -->
+          <div class="mt-6 pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+              <p class="text-xs text-slate-600">
+                <span data-md-signal-mode-label class="md-signal-mode-label font-medium">Using mock response source</span>
+                <span class="mx-2">•</span>
+                <span data-md-signal-status class="font-medium">Signal Engine: Idle</span>
+                <span class="mx-2">•</span>
+                <span class="text-slate-500">Updated <span data-md-last-update>moments ago</span></span>
+              </p>
+            </div>
+            <div class="flex items-center gap-3">
+              <span id="md-access-mode" class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
+                Preview Mode
+              </span>
+              <button type="button" data-md-signal-request class="px-4 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition md-member-only" title="Members only">
+                Connect Live Signal
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signal Response Panel -->
+        <div class="mb-8 p-6 bg-slate-900 rounded-lg md-signal-panel" data-md-signal-panel>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-slate-100 uppercase tracking-wide">Signal Engine Response</h3>
+            <span class="md-signal-panel-note text-xs text-slate-400" data-md-signal-mode-note>Mock mode enabled</span>
+          </div>
+          <pre class="md-signal-output" data-md-signal-response">{
   "status": "idle",
-  "message": "Run Signal Engine to fetch live market data."
+  "message": "Connect Signal Engine to fetch live market data"
 }</pre>
+        </div>
+
+        <section class="md-datalab" data-md-sync-url="true">
+
+        <!-- KPI Grid -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="md-mini-kpi p-4 bg-white border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Avg Cap Rate</p>
+            <p class="text-2xl md:text-3xl font-bold text-slate-900" data-md-stat="avg-cap">0.0%</p>
+          </div>
+          <div class="md-mini-kpi p-4 bg-white border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Avg NOI Growth</p>
+            <p class="text-2xl md:text-3xl font-bold text-slate-900" data-md-stat="avg-noi">0.0%</p>
+          </div>
+          <div class="md-mini-kpi p-4 bg-white border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Total Volume</p>
+            <p class="text-2xl md:text-3xl font-bold text-slate-900" data-md-stat="volume">$0.0B</p>
+          </div>
+          <div class="md-mini-kpi p-4 bg-white border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Top NOI Market</p>
+            <p class="text-2xl md:text-3xl font-bold text-slate-900" data-md-stat="top-market">-</p>
+          </div>
+        </div>
+
+        <!-- Market Pulse Metrics -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 md-data-pulse">
+          <div class="md-mini-kpi p-4 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Debt Cost Index</p>
+            <p class="text-2xl md:text-3xl font-bold text-slate-900">6.18%</p>
+            <p class="text-xs text-slate-500 mt-1">Senior floating average</p>
+          </div>
+          <div class="md-mini-kpi p-4 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Construction Starts</p>
+            <p class="text-2xl md:text-3xl font-bold text-red-600">-11.3%</p>
+            <p class="text-xs text-slate-500 mt-1">YoY national change</p>
+          </div>
+          <div class="md-mini-kpi p-4 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Loan Maturity Wall</p>
+            <p class="text-2xl md:text-3xl font-bold text-slate-900">$481B</p>
+            <p class="text-xs text-slate-500 mt-1">Due in next 24 months</p>
+          </div>
+          <div class="md-mini-kpi p-4 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-lg">
+            <p class="text-xs uppercase tracking-wide font-semibold text-slate-600 mb-2">Net Absorption</p>
+            <p class="text-2xl md:text-3xl font-bold text-green-600">+4.9M SF</p>
+            <p class="text-xs text-slate-500 mt-1">Sun Belt quarter to date</p>
+          </div>
+        </div>
+
+        <!-- Data Insights Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 md-datalab-insights">
+          <!-- Market Universe Table -->
+          <div class="lg:col-span-2 md-datalab-table-col">
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h2 class="text-lg font-bold">Market Universe</h2>
+                <p class="text-sm text-slate-300 mt-1">Detailed metrics across selected filters</p>
               </div>
-              <div data-md-saved-views class="md-saved-views"></div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead class="bg-slate-100 border-b border-slate-200">
+                    <tr>
+                      <th class="text-left px-6 py-4 font-semibold text-slate-700">Metro</th>
+                      <th class="text-left px-6 py-4 font-semibold text-slate-700">Region</th>
+                      <th class="text-left px-6 py-4 font-semibold text-slate-700">Sector</th>
+                      <th class="text-left px-6 py-4 font-semibold text-slate-700"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800 font-semibold" data-md-sort="capRate">Cap Rate ↕</button></th>
+                      <th class="text-left px-6 py-4 font-semibold text-slate-700"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800 font-semibold" data-md-sort="noiGrowth">NOI Growth ↕</button></th>
+                      <th class="text-left px-6 py-4 font-semibold text-slate-700"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800 font-semibold" data-md-sort="occupancy">Occupancy ↕</button></th>
+                      <th class="text-left px-6 py-4 font-semibold text-slate-700"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800 font-semibold" data-md-sort="volumeB">Volume ↕</button></th>
+                    </tr>
+                  </thead>
+                  <tbody data-md-rows class="divide-y divide-slate-200"></tbody>
+                </table>
+              </div>
             </div>
           </div>
 
-          <div class="flex flex-row flex-wrap -mx-2 mb-4">
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Avg Cap Rate</span><strong data-md-stat="avg-cap">0.0%</strong></div></div>
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Avg NOI Growth</span><strong data-md-stat="avg-noi">0.0%</strong></div></div>
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Total Volume</span><strong data-md-stat="volume">$0.0B</strong></div></div>
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Top NOI Market</span><strong data-md-stat="top-market">-</strong></div></div>
-          </div>
-
-          <div class="flex flex-row flex-wrap -mx-2 mb-4 md-data-pulse">
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Debt Cost Index</span><strong>6.18%</strong><small class="text-xs text-gray-500">Senior floating average</small></div></div>
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Construction Starts</span><strong>-11.3%</strong><small class="text-xs text-gray-500">YoY national change</small></div></div>
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Loan Maturity Wall</span><strong>$481B</strong><small class="text-xs text-gray-500">Due in next 24 months</small></div></div>
-            <div class="w-1/2 lg:w-1/4 px-2 mb-3"><div class="md-mini-kpi"><span>Net Absorption</span><strong>+4.9M SF</strong><small class="text-xs text-gray-500">Sun Belt quarter to date</small></div></div>
-          </div>
-
-          <div class="flex flex-row flex-wrap -mx-2 mb-4 md-datalab-insights">
-            <div class="w-full lg:w-2/3 px-2 mb-3 md-datalab-table-col">
-              <div class="border border-gray-200 rounded bg-white overflow-hidden">
-                <div class="bg-gray-100 px-4 py-3 border-b border-gray-200">
-                  <h4 class="font-semibold text-gray-800">Market Universe</h4>
-                  <p class="text-xs text-gray-600">Detailed metrics across selected filters</p>
-                </div>
-                <div class="overflow-auto">
-                  <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                      <tr>
-                        <th class="text-left p-3 font-semibold">Metro</th>
-                        <th class="text-left p-3 font-semibold">Region</th>
-                        <th class="text-left p-3 font-semibold">Sector</th>
-                        <th class="text-left p-3 font-semibold"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800" data-md-sort="capRate">Cap Rate ↕</button></th>
-                        <th class="text-left p-3 font-semibold"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800" data-md-sort="noiGrowth">NOI Growth ↕</button></th>
-                        <th class="text-left p-3 font-semibold"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800" data-md-sort="occupancy">Occupancy ↕</button></th>
-                        <th class="text-left p-3 font-semibold"><button type="button" class="md-sort-btn text-blue-600 hover:text-blue-800" data-md-sort="volumeB">Volume ↕</button></th>
-                      </tr>
-                    </thead>
-                    <tbody data-md-rows class="divide-y divide-gray-200"></tbody>
-                  </table>
-                </div>
+          <!-- Sidebar Analytics -->
+          <div class="md-datalab-side-col space-y-6">
+            <!-- Sector Heatmap -->
+            <div class="md-heat-card border border-slate-200 rounded-lg bg-white overflow-hidden">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h3 class="font-bold">Sector Heatmap</h3>
+                <p class="text-sm text-slate-300 mt-1">Capital concentration by selected market universe</p>
               </div>
+              <div data-md-heatmap class="bg-slate-50 p-6 min-h-48"></div>
             </div>
-            <div class="w-full lg:w-1/3 px-2 mb-3 md-datalab-side-col">
-              <div class="md-heat-card border border-gray-200 rounded bg-white p-4 mb-3">
-                <h4 class="text-lg font-bold text-gray-800 mb-2">Sector Heatmap</h4>
-                <p class="text-gray-600 text-sm mb-3">Capital concentration by selected market universe.</p>
-                <div data-md-heatmap class="bg-gray-50 p-2 rounded min-h-32"></div>
+
+            <!-- Price Momentum -->
+            <div class="md-heat-card border border-slate-200 rounded-lg bg-white overflow-hidden">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h3 class="font-bold">Price Momentum</h3>
+                <p class="text-sm text-slate-300 mt-1">Top metros ranked by YoY price growth</p>
               </div>
-              <div class="md-heat-card border border-gray-200 rounded bg-white p-4">
-                <h4 class="text-lg font-bold text-gray-800 mb-2">Price Momentum Trend</h4>
-                <p class="text-gray-600 text-sm mb-3">Top-volume metros ranked by YoY price growth.</p>
-                <div data-md-trend class="bg-gray-50 p-2 rounded min-h-32"></div>
+              <div data-md-trend class="bg-slate-50 p-6 min-h-48"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Member-Exclusive Premium Analytics Section -->
+        <div class="mt-12 pt-12 border-t-2 border-slate-200">
+          <!-- Premium Section Header -->
+          <div class="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg md-member-section">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div>
+                <h2 class="text-2xl font-bold text-slate-900">Premium Member Analytics</h2>
+                <p class="text-slate-700 mt-2">Advanced market insights and real-time intelligence available to members with live Signal Engine access.</p>
               </div>
+              <a href="sign-in.html" class="flex-shrink-0 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition md-member-only">
+                Access Premium Features
+              </a>
             </div>
           </div>
 
-          <!-- Member-Exclusive Premium Analytics Section -->
-          <div class="border-t-2 border-dashed border-gray-300 pt-6 mt-6">
-            <div class="mb-4 p-4 bg-blue-50 rounded border border-blue-200 md-member-section">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="text-lg font-bold text-blue-900 flex items-center">
-                    🔒 Premium Member Analytics
-                    <span class="md-member-only text-xs ml-2 px-2 py-1 bg-blue-600 text-white rounded">Exclusive</span>
-                  </h3>
-                  <p class="text-sm text-blue-800 mt-1">Advanced market insights available to members with live Signal Engine access.</p>
-                </div>
-                <a href="sign-in.html" class="text-xs px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 md-member-only">
-                  Sign In to Unlock
-                </a>
+          <!-- Premium Features Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Feature 1: Trend Analysis -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden md-member-only opacity-50 transition" title="Sign in to access advanced analytics">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h3 class="font-bold">Advanced Trend Analysis</h3>
+                <span class="inline-block mt-2 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded">Premium Feature</span>
               </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <!-- Member-only: Trend Analysis -->
-              <div class="border border-gray-200 rounded bg-white p-4 md-member-only opacity-50" title="Sign in to access advanced analytics">
-                <div class="flex justify-between items-start mb-3">
-                  <h4 class="font-bold text-gray-800">📊 Advanced Trend Analysis</h4>
-                  <span class="text-xs px-2 py-1 bg-amber-100 text-amber-800 rounded">Premium</span>
-                </div>
-                <p class="text-sm text-gray-600 mb-3">Proprietary forecasting models and risk-adjusted return analysis.</p>
-                <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• Predictive cap rate trends (6-month outlook)</li>
-                  <li>• Risk-adjusted spread analysis</li>
-                  <li>• Market regime detection</li>
-                  <li>• Custom alert configuration</li>
+              <div class="p-6">
+                <p class="text-slate-700 mb-4">Proprietary forecasting models and risk-adjusted return analysis.</p>
+                <ul class="space-y-3 text-sm text-slate-700">
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Predictive cap rate trends (6-month outlook)</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Risk-adjusted spread analysis</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Market regime detection</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Custom alert configuration</span>
+                  </li>
                 </ul>
               </div>
+            </div>
 
-              <!-- Member-only: Portfolio Benchmarking -->
-              <div class="border border-gray-200 rounded bg-white p-4 md-member-only opacity-50" title="Sign in to access portfolio tools">
-                <div class="flex justify-between items-start mb-3">
-                  <h4 class="font-bold text-gray-800">💼 Portfolio Benchmarking</h4>
-                  <span class="text-xs px-2 py-1 bg-amber-100 text-amber-800 rounded">Premium</span>
-                </div>
-                <p class="text-sm text-gray-600 mb-3">Compare your holdings against institutional benchmarks.</p>
-                <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• Asset-level performance tracking</li>
-                  <li>• Peer comparison analytics</li>
-                  <li>• Valuation gap identification</li>
-                  <li>• Rebalancing recommendations</li>
+            <!-- Feature 2: Portfolio Benchmarking -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden md-member-only opacity-50 transition" title="Sign in to access portfolio tools">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h3 class="font-bold">Portfolio Benchmarking</h3>
+                <span class="inline-block mt-2 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded">Premium Feature</span>
+              </div>
+              <div class="p-6">
+                <p class="text-slate-700 mb-4">Compare your holdings against institutional benchmarks.</p>
+                <ul class="space-y-3 text-sm text-slate-700">
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Asset-level performance tracking</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Peer comparison analytics</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Valuation gap identification</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-blue-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Rebalancing recommendations</span>
+                  </li>
                 </ul>
               </div>
+            </div>
 
-              <!-- Member-only: Live API Access -->
-              <div class="border border-gray-200 rounded bg-white p-4 md-member-only opacity-50" title="Sign in to access live API">
-                <div class="flex justify-between items-start mb-3">
-                  <h4 class="font-bold text-gray-800">⚡ Live API Access</h4>
-                  <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded">Active for Members</span>
-                </div>
-                <p class="text-sm text-gray-600 mb-3">Real-time market signal delivery and custom integrations.</p>
-                <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• WebSocket real-time data stream</li>
-                  <li>• Custom API endpoints</li>
-                  <li>• Webhook notifications</li>
-                  <li>• Historical data exports</li>
+            <!-- Feature 3: Live API Access -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden md-member-only opacity-50 transition" title="Sign in to access live API">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h3 class="font-bold">Live API Access</h3>
+                <span class="inline-block mt-2 px-3 py-1 bg-green-600 text-white text-xs font-semibold rounded">Active for Members</span>
+              </div>
+              <div class="p-6">
+                <p class="text-slate-700 mb-4">Real-time market signal delivery and custom integrations.</p>
+                <ul class="space-y-3 text-sm text-slate-700">
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-green-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>WebSocket real-time data stream</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-green-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Custom API endpoints</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-green-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Webhook notifications</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-green-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Historical data exports</span>
+                  </li>
                 </ul>
               </div>
+            </div>
 
-              <!-- Member-only: Custom Reports -->
-              <div class="border border-gray-200 rounded bg-white p-4 md-member-only opacity-50" title="Sign in to generate reports">
-                <div class="flex justify-between items-start mb-3">
-                  <h4 class="font-bold text-gray-800">📄 Custom Report Builder</h4>
-                  <span class="text-xs px-2 py-1 bg-purple-100 text-purple-800 rounded">Institutional</span>
-                </div>
-                <p class="text-sm text-gray-600 mb-3">Create branded market reports for stakeholder distribution.</p>
-                <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• White-label PDF generation</li>
-                  <li>• Scheduled report delivery</li>
-                  <li>• Executive summary templates</li>
-                  <li>• Distribution to 500+ recipients</li>
+            <!-- Feature 4: Custom Reports -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden md-member-only opacity-50 transition" title="Sign in to generate reports">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h3 class="font-bold">Custom Report Builder</h3>
+                <span class="inline-block mt-2 px-3 py-1 bg-purple-600 text-white text-xs font-semibold rounded">Institutional</span>
+              </div>
+              <div class="p-6">
+                <p class="text-slate-700 mb-4">Create branded market reports for stakeholder distribution.</p>
+                <ul class="space-y-3 text-sm text-slate-700">
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-purple-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>White-label PDF generation</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-purple-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Scheduled report delivery</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-purple-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Executive summary templates</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="inline-block w-5 h-5 bg-purple-600 text-white rounded flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <span>Distribution to 500+ recipients</span>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
+        </div>
         </section>
       </div>
     </div>
@@ -536,17 +656,17 @@ License: You must have a valid license from official store to legally use the th
         // Update access mode badge
         if (accessMode) {
           accessMode.textContent = 'Premium Access';
-          accessMode.className = 'inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded mr-2';
+          accessMode.className = 'px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full';
         }
         
         // Update header status to show member
         if (memberStatus) {
           memberStatus.innerHTML = `
-            <div class="md-member-badge inline-block px-3 py-1 bg-green-600 text-white rounded-full text-xs font-semibold">
-              <span class="md-member-indicator">✓ Member Access Active</span>
+            <div class="md-member-badge inline-block px-4 py-2 bg-green-600 text-white rounded text-sm font-semibold">
+              <span class="md-member-indicator">Member Access Active</span>
             </div>
-            <p class="text-xs text-gray-400 mt-1">
-              Dashboard active | <a href="sign-in.html" class="text-green-400 hover:text-green-300 font-semibold">Manage Profile</a>
+            <p class="text-xs text-slate-400 mt-2">
+              Dashboard active | <a href="sign-in.html" class="text-green-300 hover:text-green-200 font-semibold">Manage Profile</a>
             </p>
           `;
         }
@@ -563,14 +683,14 @@ License: You must have a valid license from official store to legally use the th
           section.style.opacity = '1';
           const header = section.querySelector('[class*="md-member-badge"]');
           if (header) {
-            header.textContent = '✓ Premium Active';
+            header.textContent = 'Premium Active';
           }
         });
         
         // Update live signal status
         const signalStatus = document.querySelector('[data-md-signal-status]');
         if (signalStatus) {
-          signalStatus.textContent = 'Signal Engine status: connected (live)';
+          signalStatus.textContent = 'Signal Engine: Connected (Live)';
           signalStatus.style.color = '#16a34a';
         }
         

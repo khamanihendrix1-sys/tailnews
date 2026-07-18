@@ -1238,7 +1238,7 @@ body.md-has-ticker {
 }
 
 .md-member-section::before {
-	content: "🔐 MEMBER-EXCLUSIVE FEATURES";
+	content: "MEMBER-EXCLUSIVE FEATURES";
 	position: absolute;
 	top: 0;
 	right: 0;
