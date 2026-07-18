@@ -368,8 +368,8 @@
         { label: 'Market Reports', href: 'search.html' },
         { label: 'Signal Engine', href: 'page.html' },
         { label: 'Data Export', href: 'page.html' },
-        { label: 'Policy Updates', href: 'policy.html' },
-        { label: 'Enterprise Layouts', href: 'index-2.html' }
+        { label: 'Sector Coverage', href: 'sectors.html' },
+        { label: 'Regulatory Updates', href: 'policy.html' }
       ],
       Legal: [
         { label: 'Privacy Policy', href: 'policy.html' },
