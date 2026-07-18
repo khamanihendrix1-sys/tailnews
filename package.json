@@ -36,8 +36,8 @@
     "build": "gulp prod",
     "prod": "gulp prod",
     "updatevendors": "gulp updatevendors",
-    "deploy": "npm run build && wrangler deploy",
-    "preview": "npm run build && wrangler dev"
+    "deploy": "npm run build && npx wrangler deploy",
+    "preview": "npm run build && npx wrangler dev"
   },
   "repository": {
     "type": "git",
