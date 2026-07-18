@@ -165,15 +165,15 @@ pre {
 
 .md-mock-ad-tag {
 	display: inline-block;
-	font-size: 0.6rem;
+	font-size: 0.62rem;
 	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.09em;
 	font-weight: 700;
-	color: #c8ff66;
-	background: rgba(200, 255, 102, 0.1);
+	color: #d9ecff;
+	background: rgba(52, 120, 255, 0.4);
 	border: 1px solid rgba(200, 255, 102, 0.4);
 	padding: 0.15rem 0.45rem;
-	border-radius: 0.2rem;
+	border-radius: 999px;
 	margin-bottom: 0.45rem;
 	position: relative;
 	z-index: 1;
@@ -1182,132 +1182,4 @@ body.md-has-ticker {
 	main [class*="bg-white"] {
 		border-radius: 0.8rem;
 	}
-}
-
-/* Data Lab Dashboard Styling */
-.md-member-badge {
-	animation: pulse-badge 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse-badge {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.8; }
-}
-
-.md-member-only {
-	position: relative;
-}
-
-.md-member-only::after {
-	content: " ";
-}
-
-.md-datalab-controls {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
-.md-datalab-controls select,
-.md-datalab-controls input {
-	font-size: 0.875rem;
-	transition: all 0.2s ease;
-}
-
-.md-datalab-controls select:focus,
-.md-datalab-controls input:focus {
-	outline: none;
-	border-color: var(--md-accent-blue, #3478ff);
-	box-shadow: 0 0 0 3px rgba(52, 120, 255, 0.1);
-}
-
-.md-signal-output {
-	background: var(--md-ink-950, #071226);
-	color: var(--md-accent-lime, #c8ff66);
-	padding: 1rem;
-	border-radius: 0.5rem;
-	font-family: 'Monaco', 'Menlo', monospace;
-	font-size: 0.75rem;
-	line-height: 1.5;
-	overflow-x: auto;
-}
-
-.md-member-section {
-	position: relative;
-	background: linear-gradient(135deg, #dbeafe 0%, #f0f9ff 100%);
-}
-
-.md-member-section::before {
-	content: "MEMBER-EXCLUSIVE FEATURES";
-	position: absolute;
-	top: 0;
-	right: 0;
-	font-size: 0.65rem;
-	font-weight: 700;
-	letter-spacing: 0.08em;
-	color: rgba(7, 18, 38, 0.4);
-	padding: 0.25rem 0.75rem;
-	text-transform: uppercase;
-}
-
-.md-heat-card {
-	transition: all 0.3s ease;
-}
-
-.md-heat-card:hover {
-	box-shadow: 0 8px 16px rgba(10, 26, 52, 0.1);
-}
-
-.md-sort-btn {
-	cursor: pointer;
-	font-weight: 600;
-	transition: color 0.2s ease;
-}
-
-.md-sort-btn:hover {
-	color: var(--md-accent-cyan, #22d5ee);
-}
-
-/* Premium member access indicator */
-.md-member-lock {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-/* Data table enhancements */
-[data-md-rows] tbody tr {
-	transition: background-color 0.2s ease;
-}
-
-[data-md-rows] tbody tr:hover {
-	background-color: rgba(52, 120, 255, 0.05);
-}
-
-/* Template-like Jinja2 syntax styling */
-.md-template-var {
-	font-family: 'Monaco', 'Menlo', monospace;
-	color: var(--md-accent-blue, #3478ff);
-	background: rgba(52, 120, 255, 0.1);
-	padding: 0.15rem 0.35rem;
-	border-radius: 0.25rem;
-	font-size: 0.85em;
-}
-
-/* Member status banner */
-#md-member-status {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	gap: 0.5rem;
-}
-
-.md-signal-mode-label {
-	display: inline-block;
-	animation: subtle-float 3s ease-in-out infinite;
-}
-
-@keyframes subtle-float {
-	0%, 100% { transform: translateY(0); }
-	50% { transform: translateY(-2px); }
 }
