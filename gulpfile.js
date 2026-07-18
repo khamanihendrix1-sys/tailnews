@@ -105,6 +105,16 @@ function prodScripts(){
   .pipe(tersers())
   .pipe(dest("./dist/js"));
 }
+
+function prodStatic(){
+  return src([
+    "./*.html",
+    "./src/**/*",
+    "./docs/**/*"
+  ], { base: "." })
+  .pipe(dest("./dist"));
+}
+
 // finish log
 function buildFinish(done){
   console.log("\n\t" + logSymbols.info,`Production is complete.\n`);
@@ -130,6 +140,6 @@ exports.default = series( devClean, devStyles, livePreview, watchFiles);
 exports.prod = series(
   devClean,
   devStyles,
-  parallel(prodStyles, prodScripts), //Run All tasks in parallel
+  parallel(prodStyles, prodScripts, prodStatic), //Run All tasks in parallel
   buildFinish
 );
