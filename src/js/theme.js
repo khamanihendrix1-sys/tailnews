@@ -15,6 +15,10 @@
       back_to_top = document.querySelector(".back-top"),
       scrollpos = window.scrollY;
 
+    if (back_to_top == null) {
+      return;
+    }
+
     var add_class_back_scroll = function add_class_back_scroll() {
       back_to_top.classList.add("block");
       back_to_top.classList.remove("hidden");
@@ -126,6 +130,9 @@
   const mySticky = function () {
     // sticky
     var stickys = document.querySelectorAll('.sticky');
+    if (typeof hcSticky !== 'function') {
+      return;
+    }
     if ( stickys !=null) {
       for (var i = 0; i < stickys.length; i++) {
         new hcSticky(stickys[i], {
@@ -260,6 +267,9 @@
   const myLightbox = function () {
     // GLightbox
     const lightbox_class = document.querySelector(".glightbox3");
+    if (typeof GLightbox !== 'function') {
+      return;
+    }
     if ( lightbox_class != null) {
       const lightbox = GLightbox({
         selector: '.glightbox3',
@@ -274,6 +284,9 @@
   const mySplidejs = function () {
     // mySplidejs
     const postslider_class = document.querySelector("#post-carousel");
+    if (typeof Splide !== 'function') {
+      return;
+    }
     if ( postslider_class != null) {
         const postslider = new Splide( postslider_class, {
           rewind    : true,
@@ -301,6 +314,9 @@
   const mySplidevideo = function () {
     // mySplidevideo
     const postvideo_class = document.querySelector("#main-carousel");
+    if (typeof Splide !== 'function') {
+      return;
+    }
     if ( postvideo_class != null) {
       const postvideo = new Splide( '#main-carousel', {
         type      : 'fade',
@@ -319,7 +335,11 @@
       } );
 
       postvideo.sync( thumbnails );
-      postvideo.mount( window.splide.Extensions );
+      if (window.splide && window.splide.Extensions) {
+        postvideo.mount( window.splide.Extensions );
+      } else {
+        postvideo.mount();
+      }
       thumbnails.mount();
     }
   }
@@ -440,16 +460,24 @@
    * ------------------------------------------------------------------------
    */
    
-  myBacktotop();
-  myPreloader();
-  mySticky();
-  myDropdown();
-  myMobile();
-  myOpen();
-  myLightbox();
-  mySplidejs();
-  mySplidevideo();
-  myFooterConfig();
-  myCustom();
+  const safeRun = function (fn) {
+    try {
+      fn();
+    } catch (error) {
+      console.error('Theme module failed:', error);
+    }
+  }
+
+  safeRun(myBacktotop);
+  safeRun(myPreloader);
+  safeRun(mySticky);
+  safeRun(myDropdown);
+  safeRun(myMobile);
+  safeRun(myOpen);
+  safeRun(myLightbox);
+  safeRun(mySplidejs);
+  safeRun(mySplidevideo);
+  safeRun(myFooterConfig);
+  safeRun(myCustom);
 
 })();

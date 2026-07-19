@@ -137,6 +137,273 @@
     });
   }
 
+  function resolveAssetPath(path) {
+    if (window.location.pathname.indexOf("/docs/") > -1) {
+      return "../" + path;
+    }
+    return path;
+  }
+
+  function normalizeTerm(text) {
+    return (text || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function humanizeTerm(term) {
+    return (term || "")
+      .replace(/[-_]+/g, " ")
+      .replace(/\b\w/g, function (ch) {
+        return ch.toUpperCase();
+      });
+  }
+
+  function initTaxonomyRouting() {
+    var path = window.location.pathname || "";
+    var legacyMatch = path.match(/\/(category|sector|sectors|tag|topic|taxonomy|author)\/([^/?#]+)/i);
+
+    if (legacyMatch && path.indexOf(".html") === -1) {
+      var bucket = legacyMatch[1].toLowerCase();
+      var term = legacyMatch[2];
+      var target = "/category.html";
+
+      if (bucket === "sector" || bucket === "sectors") {
+        target = "/sectors.html";
+      } else if (bucket === "author") {
+        target = "/author.html";
+      }
+
+      window.location.replace(target + "?term=" + encodeURIComponent(term));
+      return;
+    }
+
+    var routeByLabel = {
+      markets: "category.html",
+      market: "category.html",
+      sectors: "sectors.html",
+      sector: "sectors.html",
+      policy: "policy.html",
+      legal: "policy.html",
+      compliance: "policy.html",
+      research: "search.html",
+      rankings: "author.html",
+      author: "author.html"
+    };
+
+    var termRules = [
+      { term: "industrial", test: /(industrial|logistics|warehouse|last-mile|distribution)/ },
+      { term: "multifamily", test: /(multifamily|apartment|residential)/ },
+      { term: "office", test: /(office|workplace|conversion|downtown|cbd)/ },
+      { term: "hospitality", test: /(hospitality|hotel|adr|lodging)/ },
+      { term: "retail", test: /(retail|storefront|mall)/ },
+      { term: "life-science", test: /(life science|life-science|lab space)/ },
+      { term: "debt-markets", test: /(debt|lending|cmbs|spread|coupon|refinanc|issuance|reit)/ },
+      { term: "policy", test: /(policy|regulatory|compliance|legal|gdpr|privacy|terms)/ }
+    ];
+
+    function getTaxonomyTerm(link, label, target) {
+      if (target === "author.html") {
+        return label || "author";
+      }
+
+      var card = link.closest(".hover-img, article, li, .splide__slide, .relative");
+      var localHeading = card ? card.querySelector("h1, h2, h3, h4") : null;
+      var sectionHeading = link.closest("section, div") ? link.closest("section, div").querySelector("h2, h3") : null;
+      var context = [
+        link.textContent || "",
+        localHeading ? localHeading.textContent : "",
+        sectionHeading ? sectionHeading.textContent : ""
+      ].join(" ").toLowerCase();
+
+      var found = termRules.find(function (rule) {
+        return rule.test.test(context);
+      });
+
+      if (found) {
+        return found.term;
+      }
+
+      return label || "markets";
+    }
+
+    document.querySelectorAll("a[href]").forEach(function (link) {
+      var rawHref = (link.getAttribute("href") || "").trim();
+      if (!rawHref || rawHref.indexOf("http") === 0 || rawHref.indexOf("mailto:") === 0 || rawHref.indexOf("tel:") === 0 || rawHref.indexOf("javascript:") === 0) {
+        return;
+      }
+
+      var label = normalizeTerm(link.textContent || "");
+      var baseHref = rawHref.split("?")[0].split("#")[0];
+      var normalizedBaseHref = baseHref.replace(/^\.\//, "").replace(/^\//, "").toLowerCase();
+      var hasGenericTaxonomyHref =
+        normalizedBaseHref === "category" ||
+        normalizedBaseHref === "category.html" ||
+        normalizedBaseHref === "sectors" ||
+        normalizedBaseHref === "sectors.html" ||
+        normalizedBaseHref === "author" ||
+        normalizedBaseHref === "author.html";
+      if (!hasGenericTaxonomyHref && rawHref !== "#") {
+        return;
+      }
+
+      var target = routeByLabel[label];
+      if (!target) {
+        if (normalizedBaseHref.indexOf("category") === 0) {
+          target = "category.html";
+        } else if (normalizedBaseHref.indexOf("sectors") === 0) {
+          target = "sectors.html";
+        } else if (normalizedBaseHref.indexOf("author") === 0) {
+          target = "author.html";
+        } else {
+          return;
+        }
+      }
+
+      var term = getTaxonomyTerm(link, label, target);
+      if (!term) {
+        return;
+      }
+
+      link.setAttribute("href", "/" + target + "?term=" + encodeURIComponent(term));
+    });
+
+    var params = new URLSearchParams(window.location.search);
+    var activeTerm = params.get("term");
+    if (!activeTerm) {
+      return;
+    }
+
+    var titleNode = document.querySelector("main h2");
+    if (titleNode) {
+      var pageName = (window.location.pathname.split("/").pop() || "").toLowerCase();
+      if (pageName === "category" || pageName === "category.html" || pageName === "sectors" || pageName === "sectors.html" || pageName === "author" || pageName === "author.html") {
+        var labelPrefix = (pageName === "author" || pageName === "author.html") ? "Author" : "Topic";
+        titleNode.innerHTML = "<span class='inline-block h-5 border-l-3 border-red-600 mr-2'></span>" + labelPrefix + ": " + humanizeTerm(activeTerm);
+      }
+    }
+  }
+
+  function initImageFallbacks() {
+    var defaultImage = resolveAssetPath("src/img/bg.jpg");
+    var noImageFallback = resolveAssetPath("src/img/no-img.jpg");
+
+    function resolveReplacement(fileName) {
+      if (fileName.indexOf("avatar") === 0) {
+        return resolveAssetPath("src/img/avatar.jpg");
+      }
+      if (fileName.indexOf("post1") === 0) {
+        return resolveAssetPath("src/img/post1.jpg");
+      }
+      if (fileName.indexOf("post2") === 0) {
+        return resolveAssetPath("src/img/post2.jpg");
+      }
+      if (fileName.indexOf("post3") === 0) {
+        return resolveAssetPath("src/img/post3.jpg");
+      }
+      return defaultImage;
+    }
+
+    document.querySelectorAll("img[src*='img/dummy/']").forEach(function (img) {
+      var currentSrc = img.getAttribute("src") || "";
+      var fileName = currentSrc.split("/").pop() || "";
+      img.setAttribute("src", resolveReplacement(fileName));
+      img.onerror = function () {
+        img.onerror = null;
+        img.setAttribute("src", noImageFallback);
+      };
+    });
+
+    document.querySelectorAll("a[href*='img/dummy/']").forEach(function (link) {
+      link.setAttribute("href", defaultImage);
+    });
+  }
+
+  function initVisualImageEnhancements() {
+    var imageSet = {
+      operations: resolveAssetPath("src/img/post1.jpg"),
+      workplace: resolveAssetPath("src/img/post2.jpg"),
+      finance: resolveAssetPath("src/img/post3.jpg"),
+      policy: resolveAssetPath("src/img/bg.jpg")
+    };
+
+    var keywordToTheme = [
+      { theme: "operations", match: /(industrial|logistics|warehouse|retail|rent|occupancy|absorption|sun\s?belt|multifamily|hospitality)/ },
+      { theme: "workplace", match: /(office|conversion|life\s?science|gateway|downtown|workplace|leasing)/ },
+      { theme: "finance", match: /(debt|cmbs|lending|issuance|reit|cap\s?rate|pricing|spread|refinanc|fund|volume|liquidity)/ },
+      { theme: "policy", match: /(policy|regulatory|legal|compliance|privacy|gdpr|disclaimer|terms)/ }
+    ];
+
+    var fallbackThemes = ["operations", "workplace", "finance", "policy"];
+    var fallbackPointer = 0;
+
+    function getContextText(img) {
+      var zone = img.closest("article, .hover-img, .post-item, .relative, .p-4, .p-6") || img.parentElement;
+      if (!zone) {
+        return "";
+      }
+
+      var heading = zone.querySelector("h1, h2, h3, h4, h5, h6");
+      var paragraph = zone.querySelector("p");
+      var label = zone.querySelector("a, span");
+      var pieces = [
+        heading ? heading.textContent : "",
+        paragraph ? paragraph.textContent : "",
+        label ? label.textContent : "",
+        img.getAttribute("alt") || ""
+      ];
+
+      return pieces.join(" ").toLowerCase();
+    }
+
+    function pickThemeFromContext(context) {
+      var found = keywordToTheme.find(function (entry) {
+        return entry.match.test(context);
+      });
+
+      if (found) {
+        return found.theme;
+      }
+
+      var theme = fallbackThemes[fallbackPointer % fallbackThemes.length];
+      fallbackPointer += 1;
+      return theme;
+    }
+
+    document.querySelectorAll("main img").forEach(function (img) {
+      var src = (img.getAttribute("src") || "").toLowerCase();
+      var alt = (img.getAttribute("alt") || "").trim();
+      var hasAvatarClass = img.classList.contains("rounded-full");
+      var isAvatar = hasAvatarClass || src.indexOf("avatar") > -1;
+      var isLikelyIcon = (img.closest("button") && !img.closest("main")) || src.indexOf("favicon") > -1;
+
+      if (isAvatar || isLikelyIcon) {
+        return;
+      }
+
+      var isPlaceholder =
+        src.indexOf("img/dummy/") > -1 ||
+        src.indexOf("bg.jpg") > -1 ||
+        src.indexOf("no-img.jpg") > -1 ||
+        alt.toLowerCase() === "alt title" ||
+        alt.toLowerCase() === "image description";
+
+      if (!isPlaceholder) {
+        return;
+      }
+
+      var context = getContextText(img);
+      var theme = pickThemeFromContext(context);
+      img.setAttribute("src", imageSet[theme]);
+      img.setAttribute("loading", "lazy");
+      img.classList.add("object-cover");
+
+      if (!alt || alt.toLowerCase() === "alt title" || alt.toLowerCase() === "image description") {
+        img.setAttribute("alt", "Commercial real estate market visual");
+      }
+    });
+  }
+
   function initBackNavigation() {
     var main = document.querySelector("main#content");
     if (!main || main.querySelector("[data-md-back-btn]")) {
@@ -972,6 +1239,9 @@
   }
 
   function init() {
+    initTaxonomyRouting();
+    initImageFallbacks();
+    initVisualImageEnhancements();
     initCommandPalette();
     initCardBookmarks();
     initNewsletter();
