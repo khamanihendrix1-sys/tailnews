@@ -359,10 +359,9 @@
       ],
       Support: [
         { label: 'Contact', href: 'contact-us.html' },
-        { label: 'Documentation', href: 'docs/index.html' },
-        { label: 'Changelog', href: 'docs/changelogs.html' },
-        { label: 'Components', href: 'docs/components.html' },
-        { label: 'Customize', href: 'docs/customize.html' }
+        { label: 'Membership', href: 'sign-in.html' },
+        { label: 'Data Lab', href: 'page.html' },
+        { label: 'Research', href: 'search.html' }
       ],
       Includes: [
         { label: 'Market Reports', href: 'search.html' },
@@ -374,7 +373,6 @@
       Legal: [
         { label: 'Privacy Policy', href: 'policy.html' },
         { label: 'Terms of Use', href: 'policy.html' },
-        { label: 'License', href: 'docs/credits.html' },
         { label: 'Compliance', href: 'policy.html' },
         { label: 'Data Disclaimer', href: 'policy.html' }
       ]
@@ -424,6 +422,16 @@
     if (footerBrandCopy) {
       footerBrandCopy.textContent = 'Meridian Data builds enterprise real estate software and market intelligence for investors, lenders, and operators.';
     }
+
+    // Remove generic social placeholder links
+    const socialList = document.querySelector('#footer-content ul.space-x-3');
+    if (socialList) { socialList.remove(); }
+
+    // Remove CRE Intelligence API placeholder banners
+    document.querySelectorAll('a.md-mock-ad').forEach(function(ad) {
+      var container = ad.closest('.text-sm.sticky');
+      if (container) { container.style.display = 'none'; }
+    });
   }
 
   /**
