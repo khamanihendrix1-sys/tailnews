@@ -320,11 +320,41 @@
   }
 
   function initVisualImageEnhancements() {
-    var imageSet = {
-      operations: resolveAssetPath("src/img/post1.jpg"),
-      workplace: resolveAssetPath("src/img/post2.jpg"),
-      finance: resolveAssetPath("src/img/post3.jpg"),
-      policy: resolveAssetPath("src/img/bg.jpg")
+    var imagePools = {
+      operations: [
+        resolveAssetPath("src/img/post1.jpg"),
+        resolveAssetPath("src/img/dummy/img13.jpg"),
+        resolveAssetPath("src/img/dummy/img16.jpg"),
+        resolveAssetPath("src/img/dummy/img18.jpg"),
+        resolveAssetPath("src/img/dummy/img22.jpg")
+      ],
+      workplace: [
+        resolveAssetPath("src/img/post2.jpg"),
+        resolveAssetPath("src/img/dummy/img14.jpg"),
+        resolveAssetPath("src/img/dummy/img15.jpg"),
+        resolveAssetPath("src/img/dummy/img24.jpg"),
+        resolveAssetPath("src/img/dummy/img27.jpg")
+      ],
+      finance: [
+        resolveAssetPath("src/img/post3.jpg"),
+        resolveAssetPath("src/img/dummy/img17.jpg"),
+        resolveAssetPath("src/img/dummy/img19.jpg"),
+        resolveAssetPath("src/img/dummy/img20.jpg"),
+        resolveAssetPath("src/img/dummy/img21.jpg")
+      ],
+      policy: [
+        resolveAssetPath("src/img/dummy/img23.jpg"),
+        resolveAssetPath("src/img/dummy/img25.jpg"),
+        resolveAssetPath("src/img/dummy/img26.jpg"),
+        resolveAssetPath("src/img/bg.jpg")
+      ]
+    };
+
+    var themeCursors = {
+      operations: 0,
+      workplace: 0,
+      finance: 0,
+      policy: 0
     };
 
     var keywordToTheme = [
@@ -370,6 +400,14 @@
       return theme;
     }
 
+    function nextImageForTheme(theme) {
+      var pool = imagePools[theme] || imagePools.operations;
+      var cursor = themeCursors[theme] || 0;
+      var image = pool[cursor % pool.length];
+      themeCursors[theme] = cursor + 1;
+      return image;
+    }
+
     document.querySelectorAll("main img").forEach(function (img) {
       var src = (img.getAttribute("src") || "").toLowerCase();
       var alt = (img.getAttribute("alt") || "").trim();
@@ -394,7 +432,7 @@
 
       var context = getContextText(img);
       var theme = pickThemeFromContext(context);
-      img.setAttribute("src", imageSet[theme]);
+      img.setAttribute("src", nextImageForTheme(theme));
       img.setAttribute("loading", "lazy");
       img.classList.add("object-cover");
 
