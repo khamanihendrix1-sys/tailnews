@@ -366,6 +366,7 @@
 
     var fallbackThemes = ["operations", "workplace", "finance", "policy"];
     var fallbackPointer = 0;
+    var assignedImages = {};
 
     function getContextText(img) {
       var zone = img.closest("article, .hover-img, .post-item, .relative, .p-4, .p-6") || img.parentElement;
@@ -400,12 +401,42 @@
       return theme;
     }
 
-    function nextImageForTheme(theme) {
+    function nextImageForTheme(theme, key) {
       var pool = imagePools[theme] || imagePools.operations;
+      if (key && assignedImages[key]) {
+        return assignedImages[key];
+      }
+
+      if (key) {
+        var hash = 0;
+        for (var i = 0; i < key.length; i += 1) {
+          hash = (hash * 31 + key.charCodeAt(i)) % 2147483647;
+        }
+
+        var seededImage = pool[Math.abs(hash) % pool.length];
+        assignedImages[key] = seededImage;
+        return seededImage;
+      }
+
       var cursor = themeCursors[theme] || 0;
       var image = pool[cursor % pool.length];
       themeCursors[theme] = cursor + 1;
       return image;
+    }
+
+    function getImageKey(img) {
+      var card = img.closest(".hover-img, article, .post-item, .splide__slide, .relative, .p-4, .p-6");
+      if (!card) {
+        return "";
+      }
+
+      var primaryLink = card.querySelector("a[href*='article-'], a[href*='single'], a[href]");
+      if (primaryLink) {
+        return (primaryLink.getAttribute("href") || "").trim().toLowerCase();
+      }
+
+      var heading = card.querySelector("h1, h2, h3, h4, h5, h6");
+      return (heading ? heading.textContent : "").replace(/\s+/g, " ").trim().toLowerCase();
     }
 
     document.querySelectorAll("main img").forEach(function (img) {
@@ -435,7 +466,8 @@
 
       var context = getContextText(img);
       var theme = pickThemeFromContext(context);
-      img.setAttribute("src", nextImageForTheme(theme));
+      var imageKey = getImageKey(img);
+      img.setAttribute("src", nextImageForTheme(theme, imageKey));
       img.setAttribute("loading", "lazy");
       img.classList.add("object-cover");
 
@@ -498,10 +530,19 @@
         return;
       }
 
-      var meta = createEl("div", "md-card-meta text-xs text-gray-500 mt-2");
+      var overlay = heading.closest(".bg-gradient-cover");
+      var metaClass = overlay
+        ? "md-card-meta text-xs text-gray-200 mt-2"
+        : "md-card-meta text-xs text-gray-500 mt-2";
+      var meta = createEl("div", metaClass);
       meta.textContent = "Meridian Research Desk | " + publishedLabel;
 
-      heading.insertAdjacentElement("afterend", meta);
+      var insertionPoint = heading;
+      if (heading.parentElement && heading.parentElement.tagName === "A") {
+        insertionPoint = heading.parentElement;
+      }
+
+      insertionPoint.insertAdjacentElement("afterend", meta);
     });
   }
 
