@@ -479,6 +479,32 @@
     main.insertBefore(backWrap, main.firstChild);
   }
 
+  function initCardBylines() {
+    var now = new Date();
+    var publishedLabel = now.toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric"
+    });
+
+    document.querySelectorAll("main .hover-img").forEach(function (card) {
+      if (card.querySelector(".md-card-meta")) {
+        return;
+      }
+
+      var contentWrap = card.querySelector(".py-3, .py-0") || card;
+      var heading = card.querySelector("h2, h3, h4");
+      if (!contentWrap || !heading) {
+        return;
+      }
+
+      var meta = createEl("div", "md-card-meta text-xs text-gray-500 mt-2");
+      meta.textContent = "Meridian Research Desk | " + publishedLabel;
+
+      heading.insertAdjacentElement("afterend", meta);
+    });
+  }
+
   function initCommandPalette() {
     var openShortcut = function (event) {
       var key = event.key && event.key.toLowerCase();
@@ -1290,6 +1316,7 @@
     initDataLab();
     initTitleLengthGuards();
     initMostReadLinks();
+    initCardBylines();
     initBackNavigation();
   }
 

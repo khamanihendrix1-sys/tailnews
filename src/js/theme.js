@@ -285,6 +285,10 @@
     // mySplidejs
     const postslider_class = document.querySelector("#post-carousel");
     if (typeof Splide !== 'function') {
+      if (postslider_class) {
+        postslider_class.classList.add('is-initialized');
+        postslider_class.style.visibility = 'visible';
+      }
       return;
     }
     if ( postslider_class != null) {
@@ -315,6 +319,10 @@
     // mySplidevideo
     const postvideo_class = document.querySelector("#main-carousel");
     if (typeof Splide !== 'function') {
+      if (postvideo_class) {
+        postvideo_class.classList.add('is-initialized');
+        postvideo_class.style.visibility = 'visible';
+      }
       return;
     }
     if ( postvideo_class != null) {
