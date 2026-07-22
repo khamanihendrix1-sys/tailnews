@@ -3095,6 +3095,11 @@ iframe.wait-autoplay {
     float: left;
   }
 
+  .lg\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .lg\:-ml-4 {
     margin-left: -1rem;
   }
