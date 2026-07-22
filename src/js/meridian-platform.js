@@ -322,31 +322,31 @@
   function initVisualImageEnhancements() {
     var imagePools = {
       operations: [
-        resolveAssetPath("src/img/post1.jpg"),
-        resolveAssetPath("src/img/dummy/img13.jpg"),
-        resolveAssetPath("src/img/dummy/img16.jpg"),
-        resolveAssetPath("src/img/dummy/img18.jpg"),
-        resolveAssetPath("src/img/dummy/img22.jpg")
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1460472178825-e5240623afd5?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80"
       ],
       workplace: [
-        resolveAssetPath("src/img/post2.jpg"),
-        resolveAssetPath("src/img/dummy/img14.jpg"),
-        resolveAssetPath("src/img/dummy/img15.jpg"),
-        resolveAssetPath("src/img/dummy/img24.jpg"),
-        resolveAssetPath("src/img/dummy/img27.jpg")
+        "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80"
       ],
       finance: [
-        resolveAssetPath("src/img/post3.jpg"),
-        resolveAssetPath("src/img/dummy/img17.jpg"),
-        resolveAssetPath("src/img/dummy/img19.jpg"),
-        resolveAssetPath("src/img/dummy/img20.jpg"),
-        resolveAssetPath("src/img/dummy/img21.jpg")
+        "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1400&q=80"
       ],
       policy: [
-        resolveAssetPath("src/img/dummy/img23.jpg"),
-        resolveAssetPath("src/img/dummy/img25.jpg"),
-        resolveAssetPath("src/img/dummy/img26.jpg"),
-        resolveAssetPath("src/img/bg.jpg")
+        "https://images.unsplash.com/photo-1573496130407-57329f01f769?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80"
       ]
     };
 
@@ -422,6 +422,9 @@
       var isPlaceholder =
         src.indexOf("img/dummy/") > -1 ||
         src.indexOf("bg.jpg") > -1 ||
+        src.indexOf("post1.jpg") > -1 ||
+        src.indexOf("post2.jpg") > -1 ||
+        src.indexOf("post3.jpg") > -1 ||
         src.indexOf("no-img.jpg") > -1 ||
         alt.toLowerCase() === "alt title" ||
         alt.toLowerCase() === "image description";
