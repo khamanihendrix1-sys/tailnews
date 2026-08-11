@@ -25,6 +25,9 @@
     "log-symbols": "^4.1.0",
     "wrangler": "^4.114.0"
   },
+  "overrides": {
+    "immutable": "^4.3.7"
+  },
   "scripts": {
     "dev": "gulp",
     "start": "gulp",
