@@ -4,427 +4,560 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Meridian Data</title>
-  <meta name="description" content="Meridian Data enterprise platform dashboard">
+  <title>Market Intelligence Dashboard | Meridian Data</title>
+  <meta name="description" content="Institutional-grade commercial real estate market dashboard with signals, sector intelligence, comparisons, and AI-assisted interpretation.">
   <link rel="stylesheet" href="src/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="src/img/favicon.jpg">
-  <style>
-    .md-dash-stat-up   { color: #16a34a; }
-    .md-dash-stat-down { color: #dc2626; }
-    .md-dash-stat-neu  { color: #6b7280; }
-    .md-dash-card      { background: #fff; border: 1px solid #e5e7eb; }
-    .md-dash-kpi       { background: #fff; border: 1px solid #e5e7eb; padding: 1.25rem 1.5rem; }
-    .md-dash-kpi-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; font-weight: 600; }
-    .md-dash-kpi-value { font-size: 1.75rem; font-weight: 700; color: #111827; line-height: 1.1; margin: 0.25rem 0; }
-    .md-dash-kpi-delta { font-size: 0.75rem; font-weight: 500; }
-    .md-signal-row     { display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 1px solid #f3f4f6; }
-    .md-signal-row:last-child { border-bottom: none; }
-    .md-signal-name    { font-size: 0.8rem; color: #374151; font-weight: 500; }
-    .md-signal-val     { font-size: 0.8rem; font-weight: 600; color: #111827; }
-    .md-briefing-row   { display: flex; gap: 0.75rem; padding: 0.875rem 0; border-bottom: 1px solid #f3f4f6; align-items: flex-start; }
-    .md-briefing-row:last-child { border-bottom: none; }
-    .md-briefing-num   { font-size: 1.5rem; font-weight: 700; color: #e5e7eb; line-height: 1; flex-shrink: 0; width: 2rem; text-align: right; }
-    .md-briefing-tag   { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.4rem; background: #f3f4f6; color: #6b7280; margin-bottom: 0.2rem; }
-    .md-briefing-title { font-size: 0.875rem; font-weight: 600; color: #111827; line-height: 1.4; }
-    .md-briefing-title:hover { color: #374151; text-decoration: underline; }
-    .md-briefing-meta  { font-size: 0.7rem; color: #9ca3af; margin-top: 0.2rem; }
-    .md-user-badge     { width: 2rem; height: 2rem; border-radius: 9999px; background: #374151; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: #fff; flex-shrink: 0; }
-    .md-nav-link       { font-size: 0.8rem; font-weight: 600; color: #9ca3af; padding: 0.75rem 1rem; display: block; border-bottom: 2px solid transparent; }
-    .md-nav-link:hover { color: #fff; background: #1f2937; }
-    .md-nav-link.active { color: #fff; border-bottom-color: #fff; }
-    .md-section-head   { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; padding: 0.75rem 1rem; border-bottom: 1px solid #1f2937; background: #111827; }
-  </style>
 </head>
-<body class="bg-gray-50 text-gray-700" style="font-family:'Roboto',sans-serif;">
-
-  <!-- ===== Fixed top header ===== -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-gray-800" style="height:3.25rem;">
-    <div class="flex items-stretch h-full">
-
-      <!-- Brand -->
-      <a href="index.html" class="flex items-center px-5 border-r border-gray-800 text-white font-bold text-base tracking-tight flex-shrink-0 hover:bg-gray-900">
-        Meridian Data<span class="text-xs align-top ml-1 font-normal text-gray-500">&trade;</span>
-      </a>
-
-      <!-- Primary nav -->
-      <nav class="hidden lg:flex items-stretch flex-1">
-        <a href="index.html" class="md-nav-link">Home</a>
-        <a href="/category.html?term=markets" class="md-nav-link">Markets</a>
-        <a href="search.html" class="md-nav-link">Research</a>
-        <a href="page.html" class="md-nav-link">Data Lab</a>
-        <a href="dashboard.html" class="md-nav-link active">Dashboard</a>
-      </nav>
-
-      <!-- Right controls -->
-      <div class="flex items-stretch ml-auto">
-        <!-- Search -->
-        <div id="md-dash-search" class="relative border-l border-gray-800">
-          <button type="button" id="md-dash-search-btn" class="flex items-center h-full px-4 text-gray-400 hover:text-white hover:bg-gray-900" aria-label="Toggle search" aria-expanded="false">
-            <svg id="md-dash-search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg>
-            <svg id="md-dash-close-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16" style="display:none">
-              <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
-              <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
-            </svg>
-          </button>
-          <div id="md-dash-search-panel" style="display:none;position:absolute;right:0;top:100%;z-index:999;min-width:16rem;background:#fff;border:1px solid #e5e7eb;padding:0.75rem;">
-            <form action="search.html" method="get" class="flex items-stretch w-full">
-              <input type="text" name="q" id="md-dash-search-input" class="flex-1 py-2 px-4 text-sm text-gray-800 border border-gray-300 focus:outline-none focus:border-gray-900" placeholder="Search briefings, signals…" aria-label="Search" autocomplete="off">
-              <button type="submit" class="py-2 px-4 bg-black text-white text-sm hover:bg-gray-900 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-              </button>
-            </form>
+<body class="bg-gray-50 text-gray-700 pt-9 sm:pt-10">
+  <header class="fixed top-0 left-0 right-0 z-50">
+    <nav class="bg-black">
+      <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
+        <div class="flex justify-between">
+          <a href="index.html" class="mx-w-10 text-2xl font-medium text-white flex items-center">Meridian Data<span class="text-xs align-top ml-1">&trade;</span></a>
+          <div class="flex flex-row">
+            <ul class="navbar hidden lg:flex lg:flex-row text-gray-400 text-sm items-center font-bold">
+              <li class="relative border-l border-gray-800 hover:bg-gray-900"><a class="block py-3 px-5 border-b-2 border-transparent text-white" href="dashboard.html">Dashboard</a></li>
+              <li class="relative border-l border-gray-800 hover:bg-gray-900"><a class="block py-3 px-5 border-b-2 border-transparent" href="markets.html">Markets</a></li>
+              <li class="relative border-l border-gray-800 hover:bg-gray-900"><a class="block py-3 px-5 border-b-2 border-transparent" href="reports.html">Research</a></li>
+              <li class="relative border-l border-gray-800 hover:bg-gray-900"><a class="block py-3 px-5 border-b-2 border-transparent" href="sectors.html">Sectors</a></li>
+              <li class="relative border-l border-gray-800 hover:bg-gray-900"><a class="block py-3 px-5 border-b-2 border-transparent" href="#signals">Signals</a></li>
+              <li class="relative border-l border-gray-800 hover:bg-gray-900"><a class="block py-3 px-5 border-b-2 border-transparent" href="page.html">Data Lab</a></li>
+              <li class="relative border-l border-gray-800 hover:bg-gray-900"><a class="block py-3 px-5 border-b-2 border-transparent" href="page.html#export">Data Export</a></li>
+              <li class="relative border-l border-gray-800"><a class="block py-3 px-5 border-b-2 border-transparent font-semibold text-white hover:bg-gray-900" href="sign-in.html">Search | Alerts | Account</a></li>
+            </ul>
           </div>
         </div>
-
-        <!-- Notifications -->
-        <button class="flex items-center px-4 border-l border-gray-800 text-gray-400 hover:text-white hover:bg-gray-900 relative" aria-label="Notifications">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-        </button>
-
-        <!-- User -->
-        <div class="flex items-center gap-2.5 px-4 border-l border-gray-800 text-gray-300 text-sm">
-          <div class="md-user-badge">JD</div>
-          <span class="hidden xl:inline font-medium text-white text-xs">J. Daley</span>
-          <svg class="text-gray-600" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
-        </div>
-
-        <!-- Sign Out -->
-        <a href="sign-in.html" class="flex items-center px-4 border-l border-gray-800 text-gray-400 hover:text-white hover:bg-gray-900 text-xs font-semibold tracking-wide">
-          Sign Out
-        </a>
       </div>
-    </div>
+    </nav>
   </header>
 
-  <!-- ===== Page body (offset for fixed header) ===== -->
-  <div style="padding-top:3.25rem;" class="min-h-screen">
+  <main id="content" class="py-6">
+    <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
+      <section class="p-6 border border-gray-200 rounded bg-white mb-5">
+        <div class="flex flex-wrap gap-4 justify-between items-end">
+          <div>
+            <p class="text-xs uppercase tracking-wide font-semibold text-gray-500 mb-2">Market Intelligence Dashboard</p>
+            <h1 id="md-market-title" class="text-3xl font-bold text-gray-900">Dallas-Fort Worth</h1>
+            <p class="text-sm text-gray-600 mt-1">Data &rarr; Intelligence &rarr; Signals &rarr; Decisions</p>
+          </div>
+          <form id="md-market-form" class="flex flex-wrap gap-2 items-center">
+            <label for="md-market-select" class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Market</label>
+            <select id="md-market-select" class="px-4 py-2 border border-gray-300 min-w-64 text-sm">
+              <option>Dallas-Fort Worth</option>
+              <option>Atlanta</option>
+              <option>New York</option>
+              <option>Los Angeles</option>
+              <option>Austin</option>
+              <option>Miami</option>
+              <option>Phoenix</option>
+              <option>Chicago</option>
+            </select>
+            <button type="submit" class="px-4 py-2 bg-black text-white text-sm font-semibold">Load Market</button>
+          </form>
+        </div>
+      </section>
 
-    <!-- Welcome bar -->
-    <div class="bg-white border-b border-gray-200 px-6 py-4">
-      <div class="xl:container mx-auto xl:px-2 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p class="text-xs text-gray-400 mb-0.5">
-            <a href="index.html" class="hover:text-gray-600">Home</a>
-            <span class="mx-1.5">/</span>
-            <span class="text-gray-600 font-medium">Dashboard</span>
-          </p>
-          <h1 class="text-xl font-bold text-gray-900">Good morning, J. Daley</h1>
-          <p class="text-xs text-gray-400 mt-0.5">Friday, July 18, 2026 &nbsp;&bull;&nbsp; Institutional Access &nbsp;&bull;&nbsp; CRE Markets Platform</p>
+      <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+        <article class="p-4 border border-gray-200 rounded bg-white">
+          <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Overall Market Score</p>
+          <p id="md-score" class="text-2xl font-bold text-gray-900">82 / 100</p>
+          <p id="md-score-state" class="text-sm font-semibold text-emerald-700">Bullish ↑</p>
+        </article>
+        <article class="p-4 border border-gray-200 rounded bg-white">
+          <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Market Momentum</p>
+          <p id="md-momentum" class="text-xl font-bold text-gray-900">Strong</p>
+          <p id="md-momentum-state" class="text-xs font-semibold text-emerald-700">Bullish ↑</p>
+        </article>
+        <article class="p-4 border border-gray-200 rounded bg-white">
+          <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Investment Outlook</p>
+          <p id="md-outlook" class="text-xl font-bold text-gray-900">Positive</p>
+          <p id="md-outlook-state" class="text-xs font-semibold text-gray-500">Neutral →</p>
+        </article>
+        <article class="p-4 border border-gray-200 rounded bg-white">
+          <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Transaction Volume</p>
+          <p id="md-volume" class="text-xl font-bold text-gray-900">$12.6B</p>
+          <p class="text-xs text-gray-500">Quarter to date</p>
+        </article>
+        <article class="p-4 border border-gray-200 rounded bg-white">
+          <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-1">Signal Watch</p>
+          <p id="md-watch" class="text-xl font-bold text-gray-900">Supply Risk</p>
+          <p id="md-watch-state" class="text-xs font-semibold text-amber-700">Watch ⚠</p>
+        </article>
+      </section>
+
+      <section class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-5">
+        <div class="xl:col-span-2 p-5 border border-gray-200 rounded bg-white">
+          <div class="flex flex-wrap items-center justify-between mb-3 gap-3">
+            <h2 class="text-xl font-bold text-gray-900">Market Overview</h2>
+            <div class="text-xs text-gray-500">Updated Jul 22, 2026</div>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Pricing</p><p id="md-pricing" class="font-semibold text-gray-900">+4.9%</p></div>
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Cap Rates</p><p id="md-cap-rate" class="font-semibold text-gray-900">5.1%</p></div>
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Vacancy</p><p id="md-vacancy" class="font-semibold text-gray-900">6.3%</p></div>
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Rent Growth</p><p id="md-rent-growth" class="font-semibold text-gray-900">+4.6%</p></div>
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Absorption</p><p id="md-absorption" class="font-semibold text-gray-900">+2.1M SF</p></div>
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Construction Pipeline</p><p id="md-pipeline" class="font-semibold text-gray-900">32.4M SF</p></div>
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Supply / Demand</p><p id="md-supply-demand" class="font-semibold text-gray-900">Balanced</p></div>
+            <div class="p-3 border border-gray-100 rounded"><p class="text-gray-500 mb-1">Transaction Activity</p><p id="md-activity" class="font-semibold text-gray-900">Elevated</p></div>
+          </div>
         </div>
-        <div class="flex items-center gap-3">
-          <a href="page.html" class="flex items-center gap-1.5 py-2 px-4 bg-black text-white text-xs font-semibold hover:bg-gray-900">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            Open Data Lab
-          </a>
-          <a href="search.html" class="flex items-center gap-1.5 py-2 px-4 border border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-50">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Research Archive
-          </a>
+        <aside class="p-5 border border-gray-200 rounded bg-white" id="signals">
+          <h2 class="text-xl font-bold text-gray-900 mb-3">Meridian Signal Engine</h2>
+          <p id="md-signal-title" class="text-sm uppercase tracking-wide font-bold text-emerald-700 mb-2">Industrial Momentum &mdash; Bullish ↑</p>
+          <p id="md-signal-summary" class="text-sm text-gray-700 mb-3">Meridian has detected accelerating rent growth, declining vacancy, strong net absorption, and increasing transaction velocity.</p>
+          <ul id="md-signal-reasons" class="text-sm text-gray-600 space-y-1 mb-3">
+            <li>&bull; Limited near-term supply in prime logistics nodes.</li>
+            <li>&bull; Positive leasing spread over trailing four quarters.</li>
+            <li>&bull; Strong lender appetite for core and core-plus assets.</li>
+          </ul>
+          <div class="text-sm font-semibold text-gray-900">Signal Strength: <span id="md-signal-strength" class="text-emerald-700">87 / 100</span></div>
+          <p class="text-xs text-gray-500 mt-3">Coverage: National &rarr; Market &rarr; Sector &rarr; Submarket</p>
+        </aside>
+      </section>
+
+      <section class="p-5 border border-gray-200 rounded bg-white mb-5">
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-3">
+          <h2 class="text-xl font-bold text-gray-900">Sector Intelligence</h2>
+          <div class="flex flex-wrap gap-2">
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Office">Office</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Industrial">Industrial</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Multifamily">Multifamily</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Retail">Retail</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Hospitality">Hospitality</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Data Centers">Data Centers</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Life Sciences">Life Sciences</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Self Storage">Self Storage</button>
+            <button class="md-sector-btn px-3 py-1.5 border border-gray-300 text-xs font-semibold" data-sector="Mixed Use">Mixed Use</button>
+          </div>
         </div>
-      </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="p-4 border border-gray-100 rounded">
+            <p id="md-sector-headline" class="text-lg font-bold text-gray-900 mb-2">DFW Industrial</p>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div><span class="text-gray-500">Market Score:</span> <span id="md-sector-score" class="font-semibold text-gray-900">82 / 100</span></div>
+              <div><span class="text-gray-500">Momentum:</span> <span id="md-sector-momentum" class="font-semibold text-emerald-700">Strong</span></div>
+              <div><span class="text-gray-500">Rent Growth:</span> <span id="md-sector-rent" class="font-semibold text-gray-900">+4.6%</span></div>
+              <div><span class="text-gray-500">Vacancy:</span> <span id="md-sector-vacancy" class="font-semibold text-gray-900">↓ 6.3%</span></div>
+              <div><span class="text-gray-500">Absorption:</span> <span id="md-sector-absorption" class="font-semibold text-gray-900">↑ +2.1M SF</span></div>
+              <div><span class="text-gray-500">Transaction Volume:</span> <span id="md-sector-volume" class="font-semibold text-gray-900">$5.2B</span></div>
+            </div>
+          </div>
+          <div class="p-4 border border-gray-100 rounded">
+            <p class="text-xs uppercase tracking-wide font-semibold text-gray-500 mb-2">Meridian Commentary</p>
+            <p id="md-sector-commentary" class="text-sm text-gray-700 leading-relaxed">Demand is concentrated in modern bulk distribution product. New starts remain disciplined, supporting occupancy and underwriting confidence.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-5">
+        <div class="p-5 border border-gray-200 rounded bg-white">
+          <h2 class="text-xl font-bold text-gray-900 mb-3">Market Comparison</h2>
+          <p class="text-sm text-gray-600 mb-3">Atlanta vs. Dallas-Fort Worth vs. Austin vs. Miami</p>
+          <div class="overflow-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="p-2 text-left">Market</th>
+                  <th class="p-2 text-left">Cap Rate</th>
+                  <th class="p-2 text-left">Rent Growth</th>
+                  <th class="p-2 text-left">Vacancy</th>
+                  <th class="p-2 text-left">Absorption</th>
+                  <th class="p-2 text-left">Score</th>
+                </tr>
+              </thead>
+              <tbody id="md-compare-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="p-5 border border-gray-200 rounded bg-white">
+          <h2 class="text-xl font-bold text-gray-900 mb-3">Personalized Intelligence</h2>
+          <div class="grid grid-cols-1 gap-3 text-sm">
+            <div class="p-3 border border-gray-100 rounded">
+              <p class="font-semibold text-gray-900 mb-1">My Markets</p>
+              <p class="text-gray-600">Atlanta, Dallas-Fort Worth, Miami, Charlotte</p>
+            </div>
+            <div class="p-3 border border-gray-100 rounded">
+              <p class="font-semibold text-gray-900 mb-1">My Signals</p>
+              <p class="text-gray-600">Atlanta Industrial, Dallas Office, Miami Multifamily</p>
+            </div>
+            <div class="p-3 border border-gray-100 rounded">
+              <p class="font-semibold text-gray-900 mb-1">Recent Alerts</p>
+              <ul class="text-gray-600 space-y-1">
+                <li>&bull; Atlanta industrial vacancy has fallen below your threshold.</li>
+                <li>&bull; Dallas office transaction volume increased 18% MoM.</li>
+                <li>&bull; Austin multifamily upgraded from Neutral to Bullish.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-5">
+        <div class="p-5 border border-gray-200 rounded bg-white">
+          <h2 class="text-xl font-bold text-gray-900 mb-3">Data Lab</h2>
+          <p class="text-sm text-gray-600 mb-3">Filter datasets, build charts, compare markets and sectors, export CSV, and prepare for API workflows.</p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <select class="px-3 py-2 border border-gray-300 text-sm"><option>Date Range: Last 12 Months</option></select>
+            <select class="px-3 py-2 border border-gray-300 text-sm"><option>Sector: All</option></select>
+            <select class="px-3 py-2 border border-gray-300 text-sm"><option>Metric: Rent Growth</option></select>
+            <button class="px-4 py-2 bg-black text-white text-sm font-semibold">Export CSV</button>
+          </div>
+          <div class="p-3 border border-dashed border-gray-300 rounded text-sm text-gray-500">Custom charts and downloadable datasets render in the production Data Lab environment.</div>
+        </div>
+
+        <div class="p-5 border border-gray-200 rounded bg-white">
+          <h2 class="text-xl font-bold text-gray-900 mb-3">AI Intelligence Layer</h2>
+          <p class="text-sm text-gray-600 mb-3">Natural-language interface to Meridian's proprietary data and research.</p>
+          <form id="md-ai-form" class="flex gap-2 mb-3">
+            <input id="md-ai-input" type="text" class="flex-1 px-3 py-2 border border-gray-300 text-sm" value="Which Sun Belt markets currently have the strongest industrial fundamentals?" aria-label="Ask Meridian AI">
+            <button type="submit" class="px-4 py-2 bg-black text-white text-sm font-semibold">Ask</button>
+          </form>
+          <div id="md-ai-answer" class="p-3 border border-gray-100 rounded text-sm text-gray-700">
+            Dallas-Fort Worth, Atlanta, and Phoenix currently lead Sun Belt industrial fundamentals based on above-trend absorption, positive rent growth, and below-national vacancy. Meridian confidence: High.
+          </div>
+        </div>
+      </section>
+
+      <section class="p-5 border border-gray-200 rounded bg-white mb-5">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">Data Provenance &amp; Credibility</h2>
+        <div class="overflow-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="p-2 text-left">Metric</th>
+                <th class="p-2 text-left">Source</th>
+                <th class="p-2 text-left">Updated</th>
+                <th class="p-2 text-left">Coverage</th>
+                <th class="p-2 text-left">Methodology</th>
+                <th class="p-2 text-left">Confidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t border-gray-100"><td class="p-2">DFW Industrial Cap Rate &mdash; 5.1%</td><td class="p-2">Meridian Research + public transaction data</td><td class="p-2">Jul 22, 2026</td><td class="p-2">143 transactions</td><td class="p-2">View methodology</td><td class="p-2">High</td></tr>
+              <tr class="border-t border-gray-100"><td class="p-2">Atlanta Industrial Vacancy &mdash; 7.0%</td><td class="p-2">Meridian + broker market feeds</td><td class="p-2">Jul 22, 2026</td><td class="p-2">312 assets</td><td class="p-2">View methodology</td><td class="p-2">High</td></tr>
+              <tr class="border-t border-gray-100"><td class="p-2">National Office Absorption &mdash; -2.8M SF</td><td class="p-2">Meridian model + filings</td><td class="p-2">Jul 20, 2026</td><td class="p-2">48 markets</td><td class="p-2">View methodology</td><td class="p-2">Medium</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="p-5 border border-gray-200 rounded bg-white mb-5">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">Monetization tiers</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <article class="p-4 border border-gray-200 rounded">
+            <h3 class="font-semibold text-gray-900 mb-2">Free</h3>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>Selected market data</li>
+              <li>Limited research</li>
+              <li>Basic summaries</li>
+            </ul>
+          </article>
+          <article class="p-4 border-2 border-gray-900 rounded">
+            <h3 class="font-semibold text-gray-900 mb-2">Meridian Pro</h3>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>Full dashboards + history</li>
+              <li>Signal Engine + alerts</li>
+              <li>Advanced comparisons + exports</li>
+            </ul>
+          </article>
+          <article class="p-4 border border-gray-200 rounded">
+            <h3 class="font-semibold text-gray-900 mb-2">Meridian Enterprise</h3>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>API access + advanced datasets</li>
+              <li>Portfolio and team analytics</li>
+              <li>Custom institutional research</li>
+            </ul>
+          </article>
+        </div>
+      </section>
     </div>
+  </main>
 
-    <!-- Main grid -->
-    <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2 py-6">
-
-      <!-- ── KPI Row ── -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-
-        <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">Avg. Cap Rate &mdash; National</div>
-          <div class="md-dash-kpi-value">6.82%</div>
-          <div class="md-dash-kpi-delta md-dash-stat-up">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
-            +12 bps QoQ
-          </div>
-        </div>
-
-        <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">CMBS Delinquency Rate</div>
-          <div class="md-dash-kpi-value">3.24%</div>
-          <div class="md-dash-kpi-delta md-dash-stat-down">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="6 9 12 15 18 9"/></svg>
-            &minus;18 bps MoM
-          </div>
-        </div>
-
-        <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">10Y Treasury Spread</div>
-          <div class="md-dash-kpi-value">+285 bps</div>
-          <div class="md-dash-kpi-delta md-dash-stat-up">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
-            +5 bps WoW
-          </div>
-        </div>
-
-        <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">Q2 Transaction Volume</div>
-          <div class="md-dash-kpi-value">$86.1B</div>
-          <div class="md-dash-kpi-delta md-dash-stat-up">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
-            +4.3% YoY
-          </div>
-        </div>
-
-      </div><!-- end KPI row -->
-
-      <!-- ── Two-column content ── -->
-      <div class="flex flex-wrap gap-4">
-
-        <!-- Left: Recent Briefings (2/3) -->
-        <div class="flex-1 min-w-0" style="flex-basis:62%;">
-
-          <div class="md-dash-card mb-4">
-            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Recent Briefings</h2>
-              <a href="/category.html?term=markets" class="text-xs text-gray-400 hover:text-gray-700 font-medium">View all &rarr;</a>
-            </div>
-            <div class="px-5 py-2">
-
-              <div class="md-briefing-row">
-                <span class="md-briefing-num">01</span>
-                <div>
-                  <span class="md-briefing-tag">Cap Rates</span>
-                  <a href="article-cap-rate-compression.html" class="md-briefing-title block">Cap Rate Compression Reverses in Sun Belt Industrial Markets</a>
-                  <div class="md-briefing-meta">Jul 18, 2026 &bull; 5 min read &bull; Markets</div>
-                </div>
-              </div>
-
-              <div class="md-briefing-row">
-                <span class="md-briefing-num">02</span>
-                <div>
-                  <span class="md-briefing-tag">CMBS</span>
-                  <a href="article-cmbs-delinquency.html" class="md-briefing-title block">CMBS Delinquency Slides to 3.24% as Office Resolutions Accelerate</a>
-                  <div class="md-briefing-meta">Jul 17, 2026 &bull; 4 min read &bull; Debt Markets</div>
-                </div>
-              </div>
-
-              <div class="md-briefing-row">
-                <span class="md-briefing-num">03</span>
-                <div>
-                  <span class="md-briefing-tag">Debt</span>
-                  <a href="article-debt-funds-lending.html" class="md-briefing-title block">Debt Funds Capture 38% of Bridge Originations as Banks Pull Back</a>
-                  <div class="md-briefing-meta">Jul 16, 2026 &bull; 6 min read &bull; Lending</div>
-                </div>
-              </div>
-
-              <div class="md-briefing-row">
-                <span class="md-briefing-num">04</span>
-                <div>
-                  <span class="md-briefing-tag">Office</span>
-                  <a href="article-office-conversions.html" class="md-briefing-title block">Adaptive Reuse Conversions Hit Record Pace in Gateway Cities</a>
-                  <div class="md-briefing-meta">Jul 15, 2026 &bull; 7 min read &bull; Sectors</div>
-                </div>
-              </div>
-
-              <div class="md-briefing-row">
-                <span class="md-briefing-num">05</span>
-                <div>
-                  <span class="md-briefing-tag">REIT</span>
-                  <a href="article-reit-issuance.html" class="md-briefing-title block">REIT Preferred Issuance Surges $4.2B in Q2 as Cost of Capital Tightens</a>
-                  <div class="md-briefing-meta">Jul 14, 2026 &bull; 5 min read &bull; Capital Markets</div>
-                </div>
-              </div>
-
-              <div class="md-briefing-row">
-                <span class="md-briefing-num">06</span>
-                <div>
-                  <span class="md-briefing-tag">Logistics</span>
-                  <a href="article-sunbelt-logistics.html" class="md-briefing-title block">Sun Belt Logistics Corridor Absorption Outpaces New Supply for Third Straight Quarter</a>
-                  <div class="md-briefing-meta">Jul 12, 2026 &bull; 5 min read &bull; Industrial</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Watchlist -->
-          <div class="md-dash-card">
-            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Saved Reports</h2>
-              <button class="text-xs text-gray-400 hover:text-gray-700 font-medium">Manage &rarr;</button>
-            </div>
-            <div class="px-5 py-3">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Q2 2026 Cap Rate Scan</div>
-                  <div class="text-xs text-gray-400">Generated Jul 10 &bull; PDF &bull; 14 pages</div>
-                </div>
-
-                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Sun Belt Industrial Signals</div>
-                  <div class="text-xs text-gray-400">Generated Jul 7 &bull; PDF &bull; 9 pages</div>
-                </div>
-
-                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Office Conversion Pipeline</div>
-                  <div class="text-xs text-gray-400">Generated Jun 28 &bull; PDF &bull; 22 pages</div>
-                </div>
-
-                <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Debt Fund Lending Trends</div>
-                  <div class="text-xs text-gray-400">Generated Jun 20 &bull; PDF &bull; 11 pages</div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Right sidebar (1/3) -->
-        <div style="flex-basis:34%; min-width:240px;" class="flex flex-col gap-4">
-
-          <!-- Live Signals -->
-          <div class="md-dash-card">
-            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Live Signals</h2>
-              <span class="flex items-center gap-1 text-xs text-green-600 font-semibold">
-                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse inline-block"></span>
-                Live
-              </span>
-            </div>
-            <div class="px-5 py-2">
-
-              <div class="md-signal-row">
-                <span class="md-signal-name">National CRE Price Index</span>
-                <span class="md-signal-val md-dash-stat-up">128.4 <span style="font-weight:400;color:#9ca3af;">+1.8%</span></span>
-              </div>
-              <div class="md-signal-row">
-                <span class="md-signal-name">Office Vacancy Rate</span>
-                <span class="md-signal-val md-dash-stat-neu">17.2%</span>
-              </div>
-              <div class="md-signal-row">
-                <span class="md-signal-name">Industrial Rent Growth</span>
-                <span class="md-signal-val md-dash-stat-up">+4.6%</span>
-              </div>
-              <div class="md-signal-row">
-                <span class="md-signal-name">Multifamily Absorption</span>
-                <span class="md-signal-val md-dash-stat-up">+22,400 units</span>
-              </div>
-              <div class="md-signal-row">
-                <span class="md-signal-name">Retail Net Absorption</span>
-                <span class="md-signal-val md-dash-stat-neu">+1.1M SF</span>
-              </div>
-              <div class="md-signal-row">
-                <span class="md-signal-name">Bridge Loan Spreads</span>
-                <span class="md-signal-val md-dash-stat-down">S+310 bps</span>
-              </div>
-              <div class="md-signal-row">
-                <span class="md-signal-name">Preferred Equity Yield</span>
-                <span class="md-signal-val md-dash-stat-neu">10.5&ndash;12.0%</span>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Data Lab CTA -->
-          <div class="bg-black text-white p-5">
-            <h3 class="text-sm font-bold mb-1 tracking-tight">Data Lab</h3>
-            <p class="text-xs text-gray-400 mb-4 leading-relaxed">Run AI-powered market queries against live CRE signal data. Export structured reports for underwriting and IC memos.</p>
-            <a href="page.html" class="block w-full py-2.5 text-center bg-white text-black text-xs font-semibold tracking-wide hover:bg-gray-100">
-              Launch Data Lab &rarr;
-            </a>
-          </div>
-
-          <!-- Platform status -->
-          <div class="md-dash-card">
-            <div class="px-5 py-3 border-b border-gray-100">
-              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Platform Status</h2>
-            </div>
-            <div class="px-5 py-3 space-y-2">
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-gray-600">Signal Engine</span>
-                <span class="flex items-center gap-1.5 text-green-600 font-semibold"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Operational</span>
-              </div>
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-gray-600">Data Feed API</span>
-                <span class="flex items-center gap-1.5 text-green-600 font-semibold"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Operational</span>
-              </div>
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-gray-600">PDF Export</span>
-                <span class="flex items-center gap-1.5 text-green-600 font-semibold"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Operational</span>
-              </div>
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-gray-600">SSO / Auth</span>
-                <span class="flex items-center gap-1.5 text-yellow-500 font-semibold"><span class="w-1.5 h-1.5 bg-yellow-400 rounded-full inline-block"></span>Maintenance</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div><!-- end two-column -->
-
-    </div><!-- end container -->
-
-    <!-- Footer strip -->
-    <div class="border-t border-gray-200 bg-white mt-6">
-      <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2 py-4 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-400">
-        <span>&copy; 2026 Meridian Data. All rights reserved.</span>
-        <div class="flex gap-4">
-          <a href="policy.html" class="hover:text-gray-700">Privacy Policy</a>
-          <a href="policy.html" class="hover:text-gray-700">Terms of Use</a>
-          <a href="contact-us.html" class="hover:text-gray-700">Contact</a>
-          <a href="policy.html" class="hover:text-gray-700">Policy</a>
-        </div>
-      </div>
+  <footer class="border-t border-gray-200 bg-white">
+    <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2 py-4 text-xs text-gray-500 flex flex-wrap justify-between gap-2">
+      <span>&copy; 2026 Meridian Data. All rights reserved.</span>
+      <span>Precision. Intelligence. Data. Trust.</span>
     </div>
+  </footer>
 
-  </div><!-- end page body -->
-
-  <!-- Start development js -->
-  <script src="src/js/meridian-config.js"></script>
-  <script src="src/js/meridian-platform.js?v=20260722-trustfix"></script>
   <script src="src/js/theme.js"></script>
-  <!-- End development js -->
-
   <script>
     (function () {
-      var btn   = document.getElementById('md-dash-search-btn');
-      var panel = document.getElementById('md-dash-search-panel');
-      var iconSearch = document.getElementById('md-dash-search-icon');
-      var iconClose  = document.getElementById('md-dash-close-icon');
-      var input = document.getElementById('md-dash-search-input');
-      if (!btn || !panel) return;
+      var markets = {
+        "Dallas-Fort Worth": {
+          score: "82 / 100",
+          scoreState: "Bullish ↑",
+          momentum: "Strong",
+          momentumState: "Bullish ↑",
+          outlook: "Positive",
+          outlookState: "Neutral →",
+          volume: "$12.6B",
+          watch: "Supply Risk",
+          watchState: "Watch ⚠",
+          pricing: "+4.9%",
+          capRate: "5.1%",
+          vacancy: "6.3%",
+          rentGrowth: "+4.6%",
+          absorption: "+2.1M SF",
+          pipeline: "32.4M SF",
+          supplyDemand: "Balanced",
+          activity: "Elevated"
+        },
+        "Atlanta": {
+          score: "80 / 100",
+          scoreState: "Bullish ↑",
+          momentum: "Strong",
+          momentumState: "Bullish ↑",
+          outlook: "Positive",
+          outlookState: "Bullish ↑",
+          volume: "$8.7B",
+          watch: "New Supply",
+          watchState: "Watch ⚠",
+          pricing: "+5.2%",
+          capRate: "5.3%",
+          vacancy: "7.0%",
+          rentGrowth: "+4.1%",
+          absorption: "+1.4M SF",
+          pipeline: "28.2M SF",
+          supplyDemand: "Balanced",
+          activity: "High"
+        },
+        "New York": {
+          score: "67 / 100",
+          scoreState: "Neutral →",
+          momentum: "Mixed",
+          momentumState: "Neutral →",
+          outlook: "Stabilizing",
+          outlookState: "Watch ⚠",
+          volume: "$15.4B",
+          watch: "Office Distress",
+          watchState: "Watch ⚠",
+          pricing: "+2.1%",
+          capRate: "4.4%",
+          vacancy: "12.8%",
+          rentGrowth: "+1.3%",
+          absorption: "+0.7M SF",
+          pipeline: "16.1M SF",
+          supplyDemand: "Soft",
+          activity: "Mixed"
+        },
+        "Los Angeles": {
+          score: "74 / 100",
+          scoreState: "Neutral →",
+          momentum: "Resilient",
+          momentumState: "Neutral →",
+          outlook: "Selective",
+          outlookState: "Neutral →",
+          volume: "$10.1B",
+          watch: "Affordability",
+          watchState: "Watch ⚠",
+          pricing: "+1.6%",
+          capRate: "4.2%",
+          vacancy: "5.9%",
+          rentGrowth: "+2.0%",
+          absorption: "+0.4M SF",
+          pipeline: "12.4M SF",
+          supplyDemand: "Tight",
+          activity: "Moderate"
+        },
+        "Austin": {
+          score: "73 / 100",
+          scoreState: "Neutral →",
+          momentum: "Rebalancing",
+          momentumState: "Neutral →",
+          outlook: "Improving",
+          outlookState: "Bullish ↑",
+          volume: "$6.3B",
+          watch: "Office Vacancy",
+          watchState: "Watch ⚠",
+          pricing: "+1.1%",
+          capRate: "5.8%",
+          vacancy: "15.2%",
+          rentGrowth: "+1.8%",
+          absorption: "+0.8M SF",
+          pipeline: "19.6M SF",
+          supplyDemand: "Soft",
+          activity: "Recovering"
+        },
+        "Miami": {
+          score: "79 / 100",
+          scoreState: "Bullish ↑",
+          momentum: "Strong",
+          momentumState: "Bullish ↑",
+          outlook: "Positive",
+          outlookState: "Bullish ↑",
+          volume: "$9.2B",
+          watch: "Pricing Pressure",
+          watchState: "Neutral →",
+          pricing: "+6.4%",
+          capRate: "6.2%",
+          vacancy: "6.9%",
+          rentGrowth: "+4.9%",
+          absorption: "+1.2M SF",
+          pipeline: "14.7M SF",
+          supplyDemand: "Tight",
+          activity: "Elevated"
+        },
+        "Phoenix": {
+          score: "78 / 100",
+          scoreState: "Bullish ↑",
+          momentum: "Strong",
+          momentumState: "Bullish ↑",
+          outlook: "Positive",
+          outlookState: "Bullish ↑",
+          volume: "$7.8B",
+          watch: "Pipeline",
+          watchState: "Watch ⚠",
+          pricing: "+4.5%",
+          capRate: "5.4%",
+          vacancy: "7.1%",
+          rentGrowth: "+4.3%",
+          absorption: "+1.6M SF",
+          pipeline: "26.8M SF",
+          supplyDemand: "Balanced",
+          activity: "High"
+        },
+        "Chicago": {
+          score: "69 / 100",
+          scoreState: "Neutral →",
+          momentum: "Mixed",
+          momentumState: "Neutral →",
+          outlook: "Selective",
+          outlookState: "Neutral →",
+          volume: "$7.2B",
+          watch: "Rent Dispersion",
+          watchState: "Watch ⚠",
+          pricing: "+0.8%",
+          capRate: "6.0%",
+          vacancy: "10.9%",
+          rentGrowth: "+1.2%",
+          absorption: "+0.5M SF",
+          pipeline: "10.3M SF",
+          supplyDemand: "Balanced",
+          activity: "Moderate"
+        }
+      };
 
-      function openSearch() {
-        panel.style.display = 'block';
-        iconSearch.style.display = 'none';
-        iconClose.style.display  = 'block';
-        btn.setAttribute('aria-expanded', 'true');
-        if (input) { input.focus(); }
+      var sectorData = {
+        "Office": { score: "65 / 100", momentum: "Moderate", rent: "+0.9%", vacancy: "↓ 14.8%", absorption: "↑ +0.3M SF", volume: "$1.8B", commentary: "Demand is bifurcated. Class A transit-oriented inventory outperforms while commodity inventory remains under pressure." },
+        "Industrial": { score: "82 / 100", momentum: "Strong", rent: "+4.6%", vacancy: "↓ 6.3%", absorption: "↑ +2.1M SF", volume: "$5.2B", commentary: "Demand is concentrated in modern bulk distribution product. New starts remain disciplined, supporting occupancy and underwriting confidence." },
+        "Multifamily": { score: "77 / 100", momentum: "Stable", rent: "+3.1%", vacancy: "↓ 7.6%", absorption: "↑ +9,300 units", volume: "$3.7B", commentary: "Household formation and migration support occupancy. Deliveries are being absorbed with localized softness in lease-up submarkets." },
+        "Retail": { score: "71 / 100", momentum: "Stable", rent: "+2.2%", vacancy: "↓ 5.1%", absorption: "↑ +0.8M SF", volume: "$1.5B", commentary: "Necessity retail remains resilient. Power centers and grocery-anchored formats continue to attract lender and investor attention." },
+        "Hospitality": { score: "74 / 100", momentum: "Positive", rent: "ADR +3.8%", vacancy: "N/A", absorption: "RevPAR ↑ 4.2%", volume: "$1.2B", commentary: "Leisure demand remains durable and group recovery is helping urban performance. Capital is selective but active for quality product." },
+        "Data Centers": { score: "84 / 100", momentum: "Strong", rent: "+5.4%", vacancy: "↓ 2.9%", absorption: "↑ +340 MW", volume: "$2.4B", commentary: "Enterprise and AI-driven demand is sustaining preleasing and rent growth, despite power and land constraints in key nodes." },
+        "Life Sciences": { score: "70 / 100", momentum: "Mixed", rent: "+1.6%", vacancy: "↑ 10.2%", absorption: "↓ -0.2M SF", volume: "$0.9B", commentary: "Fundraising and tenant expansion remain uneven. Prime innovation clusters continue to outperform secondary submarkets." },
+        "Self Storage": { score: "73 / 100", momentum: "Stable", rent: "+2.4%", vacancy: "↓ 8.7%", absorption: "↑ +0.5M SF", volume: "$0.7B", commentary: "Move-ins remain healthy and operators are managing street rates with tighter promotional discipline." },
+        "Mixed Use": { score: "75 / 100", momentum: "Positive", rent: "+2.9%", vacancy: "↓ 9.3%", absorption: "↑ +0.6M SF", volume: "$1.4B", commentary: "Live-work-play districts are attracting institutional capital where placemaking, transit access, and demographic growth align." }
+      };
+
+      var compareMarkets = ["Atlanta", "Dallas-Fort Worth", "Austin", "Miami"];
+      var aiAnswers = {
+        "which sun belt markets currently have the strongest industrial fundamentals?": "Dallas-Fort Worth, Atlanta, and Phoenix currently lead Sun Belt industrial fundamentals based on above-trend absorption, positive rent growth, and below-national vacancy. Meridian confidence: High.",
+        "why has atlanta industrial performed better than dallas over the last 12 months?": "Atlanta has shown tighter vacancy compression and steadier leasing velocity, while Dallas has absorbed larger new supply. Both remain strong, but Atlanta's supply-demand balance has been more favorable over the last 12 months."
+      };
+
+      function byId(id) {
+        return document.getElementById(id);
       }
 
-      function closeSearch() {
-        panel.style.display = 'none';
-        iconSearch.style.display = 'block';
-        iconClose.style.display  = 'none';
-        btn.setAttribute('aria-expanded', 'false');
-        if (input) { input.value = ''; }
+      function fillMarket(marketName) {
+        var data = markets[marketName] || markets["Dallas-Fort Worth"];
+        byId("md-market-title").textContent = marketName;
+        byId("md-score").textContent = data.score;
+        byId("md-score-state").textContent = data.scoreState;
+        byId("md-momentum").textContent = data.momentum;
+        byId("md-momentum-state").textContent = data.momentumState;
+        byId("md-outlook").textContent = data.outlook;
+        byId("md-outlook-state").textContent = data.outlookState;
+        byId("md-volume").textContent = data.volume;
+        byId("md-watch").textContent = data.watch;
+        byId("md-watch-state").textContent = data.watchState;
+        byId("md-pricing").textContent = data.pricing;
+        byId("md-cap-rate").textContent = data.capRate;
+        byId("md-vacancy").textContent = data.vacancy;
+        byId("md-rent-growth").textContent = data.rentGrowth;
+        byId("md-absorption").textContent = data.absorption;
+        byId("md-pipeline").textContent = data.pipeline;
+        byId("md-supply-demand").textContent = data.supplyDemand;
+        byId("md-activity").textContent = data.activity;
       }
 
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        panel.style.display === 'none' ? openSearch() : closeSearch();
+      function fillSector(marketName, sectorName) {
+        var data = sectorData[sectorName];
+        byId("md-sector-headline").textContent = marketName + " " + sectorName;
+        byId("md-sector-score").textContent = data.score;
+        byId("md-sector-momentum").textContent = data.momentum;
+        byId("md-sector-rent").textContent = data.rent;
+        byId("md-sector-vacancy").textContent = data.vacancy;
+        byId("md-sector-absorption").textContent = data.absorption;
+        byId("md-sector-volume").textContent = data.volume;
+        byId("md-sector-commentary").textContent = data.commentary;
+      }
+
+      function fillCompareTable() {
+        var body = byId("md-compare-body");
+        body.innerHTML = "";
+        compareMarkets.forEach(function (name) {
+          var row = markets[name];
+          var tr = document.createElement("tr");
+          tr.className = "border-t border-gray-100";
+          tr.innerHTML =
+            "<td class='p-2'>" + name + "</td>" +
+            "<td class='p-2'>" + row.capRate + "</td>" +
+            "<td class='p-2'>" + row.rentGrowth + "</td>" +
+            "<td class='p-2'>" + row.vacancy + "</td>" +
+            "<td class='p-2'>" + row.absorption + "</td>" +
+            "<td class='p-2'>" + row.score + "</td>";
+          body.appendChild(tr);
+        });
+      }
+
+      function initMarketFromUrl() {
+        var params = new URLSearchParams(window.location.search);
+        var requested = params.get("market");
+        var select = byId("md-market-select");
+        if (requested && markets[requested]) {
+          select.value = requested;
+          return requested;
+        }
+        return select.value;
+      }
+
+      var currentMarket = initMarketFromUrl();
+      fillMarket(currentMarket);
+      fillSector(currentMarket, "Industrial");
+      fillCompareTable();
+
+      var marketForm = byId("md-market-form");
+      var marketSelect = byId("md-market-select");
+      marketForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        currentMarket = marketSelect.value;
+        fillMarket(currentMarket);
+        fillSector(currentMarket, "Industrial");
+        var nextUrl = "dashboard.html?market=" + encodeURIComponent(currentMarket);
+        window.history.replaceState({}, "", nextUrl);
       });
 
-      document.addEventListener('click', function (e) {
-        var wrap = document.getElementById('md-dash-search');
-        if (wrap && !wrap.contains(e.target)) { closeSearch(); }
+      document.querySelectorAll(".md-sector-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          fillSector(currentMarket, btn.getAttribute("data-sector"));
+        });
       });
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') { closeSearch(); }
+      var aiForm = byId("md-ai-form");
+      var aiInput = byId("md-ai-input");
+      var aiAnswer = byId("md-ai-answer");
+      aiForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var key = (aiInput.value || "").trim().toLowerCase();
+        aiAnswer.textContent = aiAnswers[key] || "Meridian AI Summary: " + currentMarket + " shows mixed signals by sector. Industrial and multifamily are currently stronger, while office recovery remains uneven. Ask a market/sector-specific follow-up for deeper evidence.";
       });
     })();
   </script>
-
 </body>
 </html>

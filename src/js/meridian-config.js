@@ -10,12 +10,13 @@
       { label: "Debt Availability", value: "61.3", delta: "+2.1 MoM" }
     ],
     quickLinks: [
-      { name: "Markets", href: "category.html" },
+      { name: "Dashboard", href: "dashboard.html" },
+      { name: "Markets", href: "markets.html" },
+      { name: "Research", href: "reports.html" },
       { name: "Sectors", href: "sectors.html" },
-      { name: "Research", href: "search.html" },
-      { name: "Policy", href: "policy.html" },
-      { name: "Rankings", href: "author.html" },
-      { name: "Contact", href: "contact-us.html" }
+      { name: "Signals", href: "dashboard.html#signals" },
+      { name: "Data Lab", href: "page.html" },
+      { name: "Data Export", href: "page.html#export" }
     ],
     datalabMetros: [
       { metro: "Dallas-Fort Worth", region: "Sun Belt", sector: "Industrial", capRate: 5.1, noiGrowth: 3.4, occupancy: 94.2, yoyPrice: 4.9, volumeB: 12.6 },
