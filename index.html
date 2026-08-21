@@ -42,7 +42,7 @@ License: You must have a valid license from official store to legally use the th
               <!-- nav menu -->
                             <ul class="navbar hidden lg:flex lg:flex-row text-gray-400 text-sm items-center font-bold">
                 <li class="active relative border-l border-gray-800 hover:bg-gray-900">
-                  <a class="block py-3 px-6 border-b-2 border-transparent" href="index.html">Home</a>
+                  <a class="block py-3 px-6 border-b-2 border-transparent" href="dashboard.html">Dashboard</a>
                 </li>
                 <li class="relative border-l border-gray-800 hover:bg-gray-900">
                   <a class="block py-3 px-6 border-b-2 border-transparent" href="/category.html?term=markets">Markets</a>
@@ -51,10 +51,19 @@ License: You must have a valid license from official store to legally use the th
                   <a class="block py-3 px-6 border-b-2 border-transparent" href="search.html">Research</a>
                 </li>
                 <li class="relative border-l border-gray-800 hover:bg-gray-900">
+                  <a class="block py-3 px-6 border-b-2 border-transparent" href="/sectors.html?term=sectors">Sectors</a>
+                </li>
+                <li class="relative border-l border-gray-800 hover:bg-gray-900">
+                  <a class="block py-3 px-6 border-b-2 border-transparent" href="dashboard.html#signals">Signals</a>
+                </li>
+                <li class="relative border-l border-gray-800 hover:bg-gray-900">
                   <a class="block py-3 px-6 border-b-2 border-transparent" href="page.html">Data Lab</a>
                 </li>
+                <li class="relative border-l border-gray-800 hover:bg-gray-900">
+                  <a class="block py-3 px-6 border-b-2 border-transparent" href="page.html#data-export">Data Export</a>
+                </li>
                 <li class="relative border-l border-gray-800">
-                  <a class="block py-3 px-6 border-b-2 border-transparent font-semibold text-white hover:bg-gray-900" href="sign-in.html">Sign In</a>
+                  <a class="block py-3 px-6 border-b-2 border-transparent font-semibold text-white hover:bg-gray-900" href="sign-in.html">Account</a>
                 </li>
               </ul>
 
@@ -119,7 +128,7 @@ License: You must have a valid license from official store to legally use the th
           <div class="text-center py-4 w-full font-medium border-b border-gray-100">MERIDIAN DATA <span class="text-xs align-top">&trade;</span></div>
                     <ul id="side-menu" class="w-full float-none flex flex-col">
             <li class="relative">
-              <a href="index.html" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Home</a>
+              <a href="dashboard.html" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Dashboard</a>
             </li>
 
             <li class="relative">
@@ -128,6 +137,15 @@ License: You must have a valid license from official store to legally use the th
 
             <li class="relative">
               <a href="search.html" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Research</a>
+            </li>
+            <li class="relative">
+              <a href="/sectors.html?term=sectors" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Sectors</a>
+            </li>
+            <li class="relative">
+              <a href="dashboard.html#signals" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Signals</a>
+            </li>
+            <li class="relative">
+              <a href="page.html#data-export" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Data Export</a>
             </li>
 
             <li class="dropdown relative">
@@ -145,7 +163,7 @@ License: You must have a valid license from official store to legally use the th
             </li>
 
             <li class="relative">
-              <a href="sign-in.html" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50 font-semibold">Sign In</a>
+              <a href="sign-in.html" class="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50 font-semibold">Account</a>
             </li>
           </ul>
         </nav>
@@ -159,6 +177,27 @@ License: You must have a valid license from official store to legally use the th
 
   <!-- =========={ MAIN }==========  -->
   <main id="content">
+    <section class="bg-slate-950 text-white py-10 border-b border-slate-800">
+      <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
+        <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-3">Decision Intelligence Gateway</p>
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">What market are you trying to understand?</h1>
+        <p class="text-slate-300 max-w-3xl mb-6">Turn commercial real-estate data into actionable intelligence with market dashboards, sector performance, proprietary signals, and export-ready analytics.</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <select id="md-home-market" class="md:col-span-2 w-full bg-slate-900 border border-slate-700 px-4 py-3 text-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="Dallas-Fort Worth">Dallas–Fort Worth</option>
+            <option value="Atlanta">Atlanta</option>
+            <option value="New York">New York</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Austin">Austin</option>
+            <option value="Miami">Miami</option>
+            <option value="Phoenix">Phoenix</option>
+            <option value="Chicago">Chicago</option>
+          </select>
+          <button type="button" id="md-home-open-dashboard" class="w-full px-4 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-semibold">Open Market Dashboard</button>
+          <a href="page.html" class="w-full px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-sm font-semibold text-center">Launch Data Lab</a>
+        </div>
+      </div>
+    </section>
     <section class="bg-white py-4">
       <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
         <div class="md-home-kpi md-live-band mb-5" aria-label="Live market stats ticker">
@@ -680,6 +719,18 @@ License: You must have a valid license from official store to legally use the th
 
         var term = match ? match.term : "markets";
         link.setAttribute("href", "/category.html?term=" + encodeURIComponent(term));
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var marketSelect = document.getElementById("md-home-market");
+      var openBtn = document.getElementById("md-home-open-dashboard");
+      if (!marketSelect || !openBtn) return;
+
+      openBtn.addEventListener("click", function () {
+        var market = encodeURIComponent(marketSelect.value || "Dallas-Fort Worth");
+        window.location.href = "dashboard.html?market=" + market;
       });
     })();
   </script>

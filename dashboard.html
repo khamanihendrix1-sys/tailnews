@@ -49,11 +49,13 @@
 
       <!-- Primary nav -->
       <nav class="hidden lg:flex items-stretch flex-1">
-        <a href="index.html" class="md-nav-link">Home</a>
+        <a href="dashboard.html" class="md-nav-link active">Dashboard</a>
         <a href="/category.html?term=markets" class="md-nav-link">Markets</a>
         <a href="search.html" class="md-nav-link">Research</a>
+        <a href="/sectors.html?term=sectors" class="md-nav-link">Sectors</a>
+        <a href="#signals" class="md-nav-link">Signals</a>
         <a href="page.html" class="md-nav-link">Data Lab</a>
-        <a href="dashboard.html" class="md-nav-link active">Dashboard</a>
+        <a href="page.html#data-export" class="md-nav-link">Data Export</a>
       </nav>
 
       <!-- Right controls -->
@@ -96,7 +98,7 @@
 
         <!-- Sign Out -->
         <a href="sign-in.html" class="flex items-center px-4 border-l border-gray-800 text-gray-400 hover:text-white hover:bg-gray-900 text-xs font-semibold tracking-wide">
-          Sign Out
+          Account
         </a>
       </div>
     </div>
@@ -110,12 +112,12 @@
       <div class="xl:container mx-auto xl:px-2 flex flex-wrap items-center justify-between gap-3">
         <div>
           <p class="text-xs text-gray-400 mb-0.5">
-            <a href="index.html" class="hover:text-gray-600">Home</a>
+            <a href="index.html" class="hover:text-gray-600">Gateway</a>
             <span class="mx-1.5">/</span>
             <span class="text-gray-600 font-medium">Dashboard</span>
           </p>
-          <h1 class="text-xl font-bold text-gray-900">Good morning, J. Daley</h1>
-          <p class="text-xs text-gray-400 mt-0.5">Friday, July 18, 2026 &nbsp;&bull;&nbsp; Institutional Access &nbsp;&bull;&nbsp; CRE Markets Platform</p>
+          <h1 class="text-xl font-bold text-gray-900">Market Intelligence Dashboard</h1>
+          <p class="text-xs text-gray-400 mt-0.5"><span id="md-active-market">Dallas–Fort Worth</span> &nbsp;&bull;&nbsp; Institutional Access &nbsp;&bull;&nbsp; Data → Intelligence → Signals → Decisions</p>
         </div>
         <div class="flex items-center gap-3">
           <a href="page.html" class="flex items-center gap-1.5 py-2 px-4 bg-black text-white text-xs font-semibold hover:bg-gray-900">
@@ -130,6 +132,35 @@
       </div>
     </div>
 
+    <div class="bg-slate-900 text-white border-b border-slate-700">
+      <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2 py-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-end">
+          <div class="lg:col-span-2">
+            <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-2">Explore market intelligence</p>
+            <label for="md-market-picker" class="text-sm text-slate-300 block mb-2">What market are you trying to understand?</label>
+            <div class="flex gap-2 flex-wrap">
+              <select id="md-market-picker" class="flex-1 min-w-[220px] bg-slate-800 border border-slate-600 px-3 py-2 text-sm rounded">
+                <option>Dallas-Fort Worth</option>
+                <option>Atlanta</option>
+                <option>New York</option>
+                <option>Los Angeles</option>
+                <option>Austin</option>
+                <option>Miami</option>
+                <option>Phoenix</option>
+                <option>Chicago</option>
+              </select>
+              <button id="md-open-lab" type="button" class="px-4 py-2 bg-white text-black text-xs font-semibold">Open Data Lab</button>
+            </div>
+          </div>
+          <div class="bg-slate-800 border border-slate-600 p-4">
+            <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">Overall Market Score</div>
+            <div id="md-market-score" class="text-2xl font-bold">82/100</div>
+            <div id="md-market-signal" class="text-xs text-emerald-300 mt-1">Bullish ↑</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Main grid -->
     <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2 py-6">
 
@@ -137,38 +168,38 @@
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
 
         <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">Avg. Cap Rate &mdash; National</div>
-          <div class="md-dash-kpi-value">6.82%</div>
+          <div class="md-dash-kpi-label">Cap Rates</div>
+          <div class="md-dash-kpi-value" id="md-kpi-cap-rate">5.1%</div>
           <div class="md-dash-kpi-delta md-dash-stat-up">
             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
-            +12 bps QoQ
+            Watch ⚠
           </div>
         </div>
 
         <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">CMBS Delinquency Rate</div>
-          <div class="md-dash-kpi-value">3.24%</div>
+          <div class="md-dash-kpi-label">Vacancy</div>
+          <div class="md-dash-kpi-value" id="md-kpi-vacancy">9.4%</div>
           <div class="md-dash-kpi-delta md-dash-stat-down">
             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="6 9 12 15 18 9"/></svg>
-            &minus;18 bps MoM
+            Bullish ↑
           </div>
         </div>
 
         <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">10Y Treasury Spread</div>
-          <div class="md-dash-kpi-value">+285 bps</div>
+          <div class="md-dash-kpi-label">Rent Growth</div>
+          <div class="md-dash-kpi-value" id="md-kpi-rent-growth">+4.6%</div>
           <div class="md-dash-kpi-delta md-dash-stat-up">
             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
-            +5 bps WoW
+            Bullish ↑
           </div>
         </div>
 
         <div class="md-dash-kpi">
-          <div class="md-dash-kpi-label">Q2 Transaction Volume</div>
-          <div class="md-dash-kpi-value">$86.1B</div>
+          <div class="md-dash-kpi-label">Transaction Volume</div>
+          <div class="md-dash-kpi-value" id="md-kpi-volume">$12.6B</div>
           <div class="md-dash-kpi-delta md-dash-stat-up">
             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
-            +4.3% YoY
+            Neutral →
           </div>
         </div>
 
@@ -177,13 +208,13 @@
       <!-- ── Two-column content ── -->
       <div class="flex flex-wrap gap-4">
 
-        <!-- Left: Recent Briefings (2/3) -->
+        <!-- Left: Research + Intelligence (2/3) -->
         <div class="flex-1 min-w-0" style="flex-basis:62%;">
 
           <div class="md-dash-card mb-4">
             <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Recent Briefings</h2>
-              <a href="/category.html?term=markets" class="text-xs text-gray-400 hover:text-gray-700 font-medium">View all &rarr;</a>
+              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Research Integrated With Data</h2>
+              <a href="/category.html?term=markets" class="text-xs text-gray-400 hover:text-gray-700 font-medium">Explore all &rarr;</a>
             </div>
             <div class="px-5 py-2">
 
@@ -244,33 +275,33 @@
             </div>
           </div>
 
-          <!-- Watchlist -->
+          <!-- Personalized watchlist -->
           <div class="md-dash-card">
             <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Saved Reports</h2>
+              <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">My Markets &amp; Alerts</h2>
               <button class="text-xs text-gray-400 hover:text-gray-700 font-medium">Manage &rarr;</button>
             </div>
             <div class="px-5 py-3">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
                 <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Q2 2026 Cap Rate Scan</div>
-                  <div class="text-xs text-gray-400">Generated Jul 10 &bull; PDF &bull; 14 pages</div>
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Atlanta Industrial</div>
+                  <div class="text-xs text-gray-400">Signal: Bullish ↑ &bull; Alert active</div>
                 </div>
 
                 <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Sun Belt Industrial Signals</div>
-                  <div class="text-xs text-gray-400">Generated Jul 7 &bull; PDF &bull; 9 pages</div>
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Dallas Office</div>
+                  <div class="text-xs text-gray-400">Signal: Watch ⚠ &bull; Vacancy threshold</div>
                 </div>
 
                 <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Office Conversion Pipeline</div>
-                  <div class="text-xs text-gray-400">Generated Jun 28 &bull; PDF &bull; 22 pages</div>
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Miami Multifamily</div>
+                  <div class="text-xs text-gray-400">Signal: Bullish ↑ &bull; Rent-growth alert</div>
                 </div>
 
                 <div class="border border-gray-100 p-3 hover:border-gray-300 cursor-pointer">
-                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Debt Fund Lending Trends</div>
-                  <div class="text-xs text-gray-400">Generated Jun 20 &bull; PDF &bull; 11 pages</div>
+                  <div class="text-xs font-semibold text-gray-900 mb-0.5">Austin Industrial</div>
+                  <div class="text-xs text-gray-400">Signal upgraded from Neutral → Bullish</div>
                 </div>
 
               </div>
