@@ -380,8 +380,8 @@
     const sections = {
       Product: [
         { label: 'Home', href: 'index.html' },
-        { label: 'Markets', href: 'category.html' },
-        { label: 'Research', href: 'search.html' },
+        { label: 'Markets', href: 'markets.html' },
+        { label: 'Research', href: 'reports.html' },
         { label: 'Data Lab', href: 'page.html' },
         { label: 'Sectors', href: 'sectors.html' }
       ],
@@ -389,12 +389,12 @@
         { label: 'Contact', href: 'contact-us.html' },
         { label: 'Membership', href: 'sign-in.html' },
         { label: 'Data Lab', href: 'page.html' },
-        { label: 'Research', href: 'search.html' }
+        { label: 'Research', href: 'reports.html' }
       ],
       Includes: [
-        { label: 'Market Reports', href: 'search.html' },
-        { label: 'Signal Engine', href: 'page.html' },
-        { label: 'Data Export', href: 'page.html' },
+        { label: 'Market Reports', href: 'reports.html' },
+        { label: 'Signal Engine', href: 'dashboard.html#signals' },
+        { label: 'Data Export', href: 'page.html#export' },
         { label: 'Sector Coverage', href: 'sectors.html' },
         { label: 'Regulatory Updates', href: 'policy.html' }
       ],
