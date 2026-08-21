@@ -67,9 +67,9 @@
     // Update timestamp for last data refresh
     const lastUpdate = document.querySelector('[data-md-last-update]');
     if (lastUpdate) {
+      const pageLoadTime = Date.now();
       const updateTime = () => {
-        const now = new Date();
-        const timeAgo = Math.floor((Date.now() - now) / 1000);
+        const timeAgo = Math.floor((Date.now() - pageLoadTime) / 1000);
         if (timeAgo < 60) {
           lastUpdate.textContent = 'moments ago';
         } else if (timeAgo < 3600) {
