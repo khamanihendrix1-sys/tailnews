@@ -98,7 +98,7 @@
 
         <!-- Sign Out -->
         <a href="sign-in.html" class="flex items-center px-4 border-l border-gray-800 text-gray-400 hover:text-white hover:bg-gray-900 text-xs font-semibold tracking-wide">
-          Account
+          Sign Out
         </a>
       </div>
     </div>
@@ -155,7 +155,7 @@
           <div class="bg-slate-800 border border-slate-600 p-4">
             <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">Overall Market Score</div>
             <div id="md-market-score" class="text-2xl font-bold">82/100</div>
-            <div id="md-market-signal" class="text-xs text-emerald-300 mt-1">Bullish ↑</div>
+            <div id="md-market-signal" class="text-xs mt-1">Bullish ↑</div>
           </div>
         </div>
       </div>
@@ -179,8 +179,8 @@
         <div class="md-dash-kpi">
           <div class="md-dash-kpi-label">Vacancy</div>
           <div class="md-dash-kpi-value" id="md-kpi-vacancy">9.4%</div>
-          <div class="md-dash-kpi-delta md-dash-stat-down">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="6 9 12 15 18 9"/></svg>
+          <div class="md-dash-kpi-delta md-dash-stat-up">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
             Bullish ↑
           </div>
         </div>
@@ -257,7 +257,7 @@
       <div class="md-dash-card mb-6 p-5">
         <div class="flex items-center justify-between mb-3">
           <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Market Comparison</h2>
-          <span class="text-xs text-gray-400">Atlanta vs Dallas vs Austin vs Miami</span>
+          <span class="text-xs text-gray-400" id="md-comparison-subtitle">Atlanta vs Dallas vs Austin vs Miami</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-xs border border-gray-100">
@@ -272,12 +272,7 @@
                 <th class="p-2 text-left">Signal</th>
               </tr>
             </thead>
-            <tbody id="md-comparison-body">
-              <tr class="border-t border-gray-100"><td class="p-2">Atlanta</td><td class="p-2">5.3%</td><td class="p-2">+5.2%</td><td class="p-2">8.6%</td><td class="p-2">+1.4M SF</td><td class="p-2">$8.7B</td><td class="p-2 text-green-600">Bullish ↑</td></tr>
-              <tr class="border-t border-gray-100"><td class="p-2">Dallas-Fort Worth</td><td class="p-2">5.1%</td><td class="p-2">+4.9%</td><td class="p-2">9.4%</td><td class="p-2">+2.1M SF</td><td class="p-2">$12.6B</td><td class="p-2 text-green-600">Bullish ↑</td></tr>
-              <tr class="border-t border-gray-100"><td class="p-2">Austin</td><td class="p-2">5.8%</td><td class="p-2">+1.1%</td><td class="p-2">12.1%</td><td class="p-2">+0.7M SF</td><td class="p-2">$6.3B</td><td class="p-2 text-yellow-600">Watch ⚠</td></tr>
-              <tr class="border-t border-gray-100"><td class="p-2">Miami</td><td class="p-2">6.2%</td><td class="p-2">+6.4%</td><td class="p-2">7.9%</td><td class="p-2">+1.2M SF</td><td class="p-2">$9.2B</td><td class="p-2 text-green-600">Bullish ↑</td></tr>
-            </tbody>
+            <tbody id="md-comparison-body"></tbody>
           </table>
         </div>
       </div>
@@ -535,14 +530,25 @@
 
     (function () {
       var marketData = {
-        "Dallas-Fort Worth": { score: "82/100", signal: "Bullish ↑", capRate: "5.1%", vacancy: "9.4%", rentGrowth: "+4.9%", volume: "$12.6B" },
-        "Atlanta": { score: "80/100", signal: "Bullish ↑", capRate: "5.3%", vacancy: "8.6%", rentGrowth: "+5.2%", volume: "$8.7B" },
-        "New York": { score: "71/100", signal: "Neutral →", capRate: "4.4%", vacancy: "11.2%", rentGrowth: "+2.1%", volume: "$15.4B" },
-        "Los Angeles": { score: "74/100", signal: "Neutral →", capRate: "4.2%", vacancy: "8.2%", rentGrowth: "+1.6%", volume: "$10.1B" },
-        "Austin": { score: "67/100", signal: "Watch ⚠", capRate: "5.8%", vacancy: "12.1%", rentGrowth: "+1.1%", volume: "$6.3B" },
-        "Miami": { score: "79/100", signal: "Bullish ↑", capRate: "6.2%", vacancy: "7.9%", rentGrowth: "+6.4%", volume: "$9.2B" },
-        "Phoenix": { score: "73/100", signal: "Neutral →", capRate: "5.7%", vacancy: "10.1%", rentGrowth: "+3.1%", volume: "$7.1B" },
-        "Chicago": { score: "68/100", signal: "Watch ⚠", capRate: "6.0%", vacancy: "12.7%", rentGrowth: "+0.8%", volume: "$7.2B" }
+        "Dallas-Fort Worth": { score: "82/100", signal: "Bullish ↑", capRate: "5.1%", vacancy: "9.4%", rentGrowth: "+4.9%", volume: "$12.6B", absorption: "+2.1M SF" },
+        "Atlanta": { score: "80/100", signal: "Bullish ↑", capRate: "5.3%", vacancy: "8.6%", rentGrowth: "+5.2%", volume: "$8.7B", absorption: "+1.4M SF" },
+        "New York": { score: "71/100", signal: "Neutral →", capRate: "4.4%", vacancy: "11.2%", rentGrowth: "+2.1%", volume: "$15.4B", absorption: "+0.7M SF" },
+        "Los Angeles": { score: "74/100", signal: "Neutral →", capRate: "4.2%", vacancy: "8.2%", rentGrowth: "+1.6%", volume: "$10.1B", absorption: "+0.4M SF" },
+        "Austin": { score: "67/100", signal: "Watch ⚠", capRate: "5.8%", vacancy: "12.1%", rentGrowth: "+1.1%", volume: "$6.3B", absorption: "+0.7M SF" },
+        "Miami": { score: "79/100", signal: "Bullish ↑", capRate: "6.2%", vacancy: "7.9%", rentGrowth: "+6.4%", volume: "$9.2B", absorption: "+1.2M SF" },
+        "Phoenix": { score: "73/100", signal: "Neutral →", capRate: "5.7%", vacancy: "10.1%", rentGrowth: "+3.1%", volume: "$7.1B", absorption: "+0.9M SF" },
+        "Chicago": { score: "68/100", signal: "Watch ⚠", capRate: "6.0%", vacancy: "12.7%", rentGrowth: "+0.8%", volume: "$7.2B", absorption: "+0.5M SF" }
+      };
+
+      var comparisonPeers = {
+        "Dallas-Fort Worth": ["Atlanta", "Dallas-Fort Worth", "Austin", "Miami"],
+        "Atlanta": ["Atlanta", "Dallas-Fort Worth", "Austin", "Miami"],
+        "New York": ["New York", "Chicago", "Los Angeles", "Dallas-Fort Worth"],
+        "Los Angeles": ["Los Angeles", "Phoenix", "Dallas-Fort Worth", "Miami"],
+        "Austin": ["Austin", "Dallas-Fort Worth", "Atlanta", "Phoenix"],
+        "Miami": ["Miami", "Atlanta", "Dallas-Fort Worth", "New York"],
+        "Phoenix": ["Phoenix", "Los Angeles", "Austin", "Dallas-Fort Worth"],
+        "Chicago": ["Chicago", "New York", "Dallas-Fort Worth", "Atlanta"]
       };
 
       var sectorData = {
@@ -568,17 +574,54 @@
       var rentGrowth = document.getElementById("md-kpi-rent-growth");
       var volume = document.getElementById("md-kpi-volume");
       var openLab = document.getElementById("md-open-lab");
+      var comparisonBody = document.getElementById("md-comparison-body");
+      var comparisonSubtitle = document.getElementById("md-comparison-subtitle");
+
+      function signalClass(signalLabel) {
+        if (signalLabel.indexOf("Bullish") === 0) return "text-green-600";
+        if (signalLabel.indexOf("Watch") === 0) return "text-yellow-600";
+        if (signalLabel.indexOf("Bearish") === 0) return "text-red-600";
+        return "text-gray-600";
+      }
+
+      function renderComparison(activeMarket) {
+        if (!comparisonBody) return;
+        var peers = comparisonPeers[activeMarket] || [activeMarket];
+        comparisonBody.innerHTML = "";
+        peers.forEach(function (name) {
+          var item = marketData[name];
+          if (!item) return;
+          var row = document.createElement("tr");
+          row.className = "border-t border-gray-100";
+          row.innerHTML =
+            "<td class='p-2'>" + name + "</td>" +
+            "<td class='p-2'>" + item.capRate + "</td>" +
+            "<td class='p-2'>" + item.rentGrowth + "</td>" +
+            "<td class='p-2'>" + item.vacancy + "</td>" +
+            "<td class='p-2'>" + item.absorption + "</td>" +
+            "<td class='p-2'>" + item.volume + "</td>" +
+            "<td class='p-2 " + signalClass(item.signal) + "'>" + item.signal + "</td>";
+          comparisonBody.appendChild(row);
+        });
+        if (comparisonSubtitle) {
+          comparisonSubtitle.textContent = peers.join(" vs ");
+        }
+      }
 
       function applyMarket(name) {
         var data = marketData[name];
         if (!data) return;
         if (marketTitle) marketTitle.textContent = name;
         if (score) score.textContent = data.score;
-        if (signal) signal.textContent = data.signal;
+        if (signal) {
+          signal.textContent = data.signal;
+          signal.className = "text-xs mt-1 " + signalClass(data.signal);
+        }
         if (capRate) capRate.textContent = data.capRate;
         if (vacancy) vacancy.textContent = data.vacancy;
         if (rentGrowth) rentGrowth.textContent = data.rentGrowth;
         if (volume) volume.textContent = data.volume;
+        renderComparison(name);
       }
 
       if (pickedMarket && marketPicker) {
@@ -607,7 +650,10 @@
         var data = sectorData[name];
         if (!data) return;
         if (sectorScore) sectorScore.textContent = data.score;
-        if (sectorMomentum) sectorMomentum.textContent = data.momentum;
+        if (sectorMomentum) {
+          sectorMomentum.textContent = data.momentum;
+          sectorMomentum.className = "text-lg font-bold " + signalClass(data.momentum);
+        }
         if (sectorAbsorption) sectorAbsorption.textContent = data.absorption;
         if (sectorPipeline) sectorPipeline.textContent = data.pipeline;
         if (sectorCommentary) sectorCommentary.textContent = data.commentary;
