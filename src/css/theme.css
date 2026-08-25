@@ -515,7 +515,7 @@ input:focus,
 select:focus,
 textarea:focus {
 	border-color: var(--md-accent) !important;
-	box-shadow: 0 0 0 3px rgba(34, 213, 238, 0.16) !important;
+	box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16) !important;
 }
 
 button,
@@ -539,7 +539,6 @@ button[class*="bg-black"]:hover,
 a[class*="bg-black"]:hover {
 	background: var(--md-ink-800) !important;
 	box-shadow: var(--md-shadow);
-	background: linear-gradient(100deg, #2e87ff, #2ce7ff) !important;
 }
 
 #footer-content,
