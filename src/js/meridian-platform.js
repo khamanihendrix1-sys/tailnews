@@ -159,6 +159,15 @@
       });
   }
 
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function initTaxonomyRouting() {
     var path = window.location.pathname || "";
     var legacyMatch = path.match(/\/(category|sector|sectors|tag|topic|taxonomy|author)\/([^/?#]+)/i);
@@ -279,7 +288,7 @@
       var pageName = (window.location.pathname.split("/").pop() || "").toLowerCase();
       if (pageName === "category" || pageName === "category.html" || pageName === "sectors" || pageName === "sectors.html" || pageName === "author" || pageName === "author.html") {
         var labelPrefix = (pageName === "author" || pageName === "author.html") ? "Author" : "Topic";
-        titleNode.innerHTML = "<span class='inline-block h-5 border-l-3 border-red-600 mr-2'></span>" + labelPrefix + ": " + humanizeTerm(activeTerm);
+        titleNode.innerHTML = "<span class='inline-block h-5 border-l-3 border-red-600 mr-2'></span>" + escapeHtml(labelPrefix) + ": " + escapeHtml(humanizeTerm(activeTerm));
       }
     }
   }

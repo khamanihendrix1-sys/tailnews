@@ -109,6 +109,7 @@ function prodScripts(){
 function prodStatic(){
   return src([
     "./*.html",
+    "./_headers",
     "./src/**/*",
     "./docs/**/*"
   ], { base: "." })
